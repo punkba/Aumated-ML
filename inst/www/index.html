@@ -26,7 +26,7 @@
                                     <a class="nav-link active" id="uploadcsv-tab" data-toggle="tab" href="#uploadcsv" role="tab" aria-controls="uploadcsv" aria-selected="true">Upload CSV</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                                    <a class="nav-link" id="manipulation-tab" data-toggle="tab" href="#manipulation" role="tab" aria-controls="manipulation" aria-selected="false">Variable Manipulation</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
@@ -69,7 +69,74 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                                <div class="tab-pane fade" id="manipulation" role="tabpanel" aria-labelledby="manipulation-tab">
+                                    <div class='container'>
+                                        <div class='row'>
+                                            <div class='col-md'>
+                                                <div class="card cardList">
+                                                    <div class="card-header text-primary text-center">
+                                                    Categorical Variables
+                                                    </div>
+                                                    <div class="card-body ">
+                                                        <h6 class="card-title">Identified as Categorical</h6>
+                                                        <ul id='cate-list' class='varLi'>
+                                                            <!--<li> Variable 1</li>
+                                                            <li> Variable 2</li>-->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-md'>
+                                                <div class="card cardList">
+                                                    <div class="card-header text-primary text-center">
+                                                    Continuous Variables
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Identified as Continuous</h6>
+                                                        <ul id='conte-list' class='varLi'>
+                                                            <!--<li> Variable 1</li>
+                                                            <li> Variable 2</li>-->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-md'>
+                                                <div class="card cardList">
+                                                    <div class="card-header text-primary text-center">
+                                                    Discrete Variables
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">Convert these to Categorical ??</h6>
+                                                        <div id = 'discreteBox' class = 'form-ml-5'>
+
+                                                        </div>
+                                                        <!--<div class="form ml-5">
+                                                            <div class="form-group">
+                                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                                <label class="form-check-label" for="defaultCheck1">
+                                                                    Variable 1
+                                                                </label>
+                                                            </div>
+                                                            <div class='form-group'>
+                                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                                                <label class="form-check-label" for="defaultCheck2">
+                                                                    Variable 2
+                                                                </label>
+                                                            </div>
+                                                        </div>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class='col-md py-3'>
+                                                <div class='text-center'>
+                                                    <button type="submit" class="btn btn-outline-primary" id='varChangeBtn'>Make Changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                             </div>
                         </div>

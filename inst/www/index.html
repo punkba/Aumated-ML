@@ -43,35 +43,23 @@
                                                     <button class="btn btn-outline-secondary" type="button" id="fileInputText">Input Data File</button>
                                                 </div>
                                                 <div class="custom-file" id="custom-file">
-                                                    <input type="file" class="custom-file-input" id="fileInputArea" aria-describedby="fileInputText">
+                                                    <input type="file" class="custom-file-input" id="fileInputArea" aria-describedby="fileInputText" required>
                                                     <label class="custom-file-label" for="fileInputArea">Choose file</label>
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    Input file Required !!
                                                 </div>
                                             </div>
                                         </div>
                                         <div class='form-row'>
                                             <div class="form-group col-md-4">
                                                 <label for="dvname">Target Variable</label>
-                                                <input type="text" class="form-control" id="dvname" placeholder="">
-                                                <div class="invalid-feedback">
-                                                    Target Variable cannot be empty
-                                                </div>
+                                                <input type="text" class="form-control" id="dvname" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="preddv">Class to Predict</label>
-                                                <input type="text" class="form-control" id="preddv" placeholder="">
-                                                <div class="invalid-feedback">
-                                                    Enter a value !!
-                                                </div>
+                                                <input type="text" class="form-control" id="preddv" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="data-split">Data Split (%)</label>
-                                                <input type="text" class="form-control" id="data-split" placeholder="">
-                                                <div class="invalid-feedback">
-                                                    Enter a value !!
-                                                </div>
+                                                <input type="text" class="form-control" id="data-split" placeholder="" required>
                                             </div>
                                             <div class='form-group col-md-12'>
                                                 <div class='text-center'>

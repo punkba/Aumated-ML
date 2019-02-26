@@ -16,22 +16,22 @@ $(document).ready(function(){
 		ds=$("#data-split").val();
 
 		if(!filename){
-			$("#fileInputArea").addClass('is-invalid');
+			alert('Enter FileName');
 			return;
 		}
 
 		if(!dvname){
-			$("#dvname").addClass('is-invalid');
+			alert('Enter DV');
 		  	return;
 		}
 
 		if(!preddv){
-			$("#preddv").addClass('is-invalid');
+			alert('Enter Class');
 		  return;
 		}
 
 		if(!ds){
-			$("#data-split").removeClass('is-invalid');
+			alert('Enter Split Ratio');
 		  	return;
 		}
 

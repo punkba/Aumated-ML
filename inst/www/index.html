@@ -46,20 +46,32 @@
                                                     <input type="file" class="custom-file-input" id="fileInputArea" aria-describedby="fileInputText">
                                                     <label class="custom-file-label" for="fileInputArea">Choose file</label>
                                                 </div>
+                                                <div class="invalid-feedback">
+                                                    Input file Required !!
+                                                </div>
                                             </div>
                                         </div>
                                         <div class='form-row'>
                                             <div class="form-group col-md-4">
-                                                <label for="dvname">DV Column</label>
+                                                <label for="dvname">Target Variable</label>
                                                 <input type="text" class="form-control" id="dvname" placeholder="">
+                                                <div class="invalid-feedback">
+                                                    Target Variable cannot be empty
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="preddv">DV Level</label>
+                                                <label for="preddv">Class to Predict</label>
                                                 <input type="text" class="form-control" id="preddv" placeholder="">
+                                                <div class="invalid-feedback">
+                                                    Enter a value !!
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="data-split">Data Split (%)</label>
-                                                <input type="text" class="form-control" id="data-split" placeholder="80">
+                                                <input type="text" class="form-control" id="data-split" placeholder="">
+                                                <div class="invalid-feedback">
+                                                    Enter a value !!
+                                                </div>
                                             </div>
                                             <div class='form-group col-md-12'>
                                                 <div class='text-center'>
@@ -108,7 +120,6 @@
                                                     <div class="card-body">
                                                         <h6 class="card-title">Convert these to Categorical ??</h6>
                                                         <div id = 'discreteBox' class = 'form ml-5'>
-
                                                         </div>
                                                         <!--<div class="form ml-5">
                                                             <div class="form-group">

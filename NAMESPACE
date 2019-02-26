@@ -1,3 +1,5 @@
 export(exploreDf)
 export(preprocessing)
 export(read_csv)
+export(benchmarking)
+export(benchmarking_modelling_module)

@@ -4,7 +4,9 @@ data<-df_full
 
 #add string for data summary
 Summary_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
-write.table(Summary_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+writeLines("Summary of Input Data", con = "LogFile.txt", sep = '\n')
+write.table(Summary_df, "LogFile.txt", sep = ",", col.names = T, append = T)
+#write("End of Summary",file="LogFile.txt",append=TRUE)
 
 #consider target variable name given as input in HybridFS function as DV'
 n <- dv
@@ -21,13 +23,13 @@ write.csv(df_temp,"C:/opencpuapp_ip/prepro_step1.csv")
 #get the list of categorical variables
 cat_var=data.frame()
 
-df_temp<-df_temp[, names(df_temp) != n]
+df_temp<-df_temp[, names(df_temp) != n] 
 
 #get the list of character variables
 char <- df_temp[sapply(df_temp,is.character)]
 cat_var<-char
 
-#get the list of logical variables
+#get the list of logical variables 
 logcl <- df_temp[sapply(df_temp, is.logical)]
 cat_var<-cbind(cat_var,logcl)
 
@@ -42,7 +44,7 @@ cat_var_names<-names(cat_var)
 cat_var_names
 categorical <- list(categorical=I(cat_var_names))
 
-#removing the categorical variables in df_temp
+#removing the categorical variables in df_temp 
 df_temp<-df_temp[, !sapply(df_temp,is.logical)]
 df_temp<-df_temp[, !sapply(df_temp,is.character)]
 df_temp<-df_temp[, !sapply(df_temp,is.factor)]
@@ -68,11 +70,11 @@ bench_categorical <- list(bench_categorical=I(bench_cat_var_names))
 df_cont <- data[, names(data) != n]
 for(i in names(cat_var))
 {
-  df_cont<-df_cont[names(df_cont) != i]
+  df_cont<-df_cont[names(df_cont) != i] 
 }
 for(i in names(unique_lvl_cnt))
 {
-  df_cont<-df_cont[names(df_cont) != i]
+  df_cont<-df_cont[names(df_cont) != i] 
 }
 cont_var_names<-list()
 cont_var_names<-names(df_cont)
@@ -86,8 +88,13 @@ final_list <- list(discrete,categorical,continuous)
 bench_final_list <- list(bench_categorical, continuous)
 
 #add string for variable list
-lapply(final_list, function(x) write.table( data.frame(x), 'LogFile.csv'  , append= T, sep=',' ))
-lapply(bench_final_list, function(x) write.table( data.frame(x), 'LogFile.csv'  , append= T, sep=',' ))
+write("List of variables (as selected by user)",file="LogFile.txt",append=TRUE)
+lapply(final_list, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
+write("List of variables (Default)",file="LogFile.txt",append=TRUE)
+lapply(bench_final_list, function(x) write.table( data.frame(x), 'LogFile_Bench.txt'  , append= T, sep=',' ))
+
+#lapply(final_list, function(x) write.table( data.frame(x), 'LogFile.csv'  , append= T, sep=',' ))
+#lapply(bench_final_list, function(x) write.table( data.frame(x), 'LogFile.csv'  , append= T, sep=',' ))
 
 discrete = unlist(discrete, use.names=FALSE)
 categorical = unlist(categorical, use.names=FALSE)

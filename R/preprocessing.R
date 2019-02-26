@@ -1,13 +1,15 @@
 preprocessing <- function(conv_var_names, dv){
 
+library(plyr)
+library(dplyr)
+
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"
 
 variables = read.csv(file='C:/opencpuapp_ip/variable_list.csv', header=TRUE, sep=",")
 categorical = levels(variables$categorical)
-if(conv_var_names)
+if(length(conv_var_names) != 0)
 {
-  conv_var_names = as.character(conv_var_names)
   categorical = append(categorical, conv_var_names)
   disc_var_names = levels(variables$discrete)[levels(variables$discrete) != conv_var_names]
 } else {
@@ -34,8 +36,10 @@ for(j in cat_var_names)
 }
 
 #add string for cat var treatment
-cat_var_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
-write.table(cat_var_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+#cat_var_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
+#write.table(cat_var_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+
+write("Categorical variables treatment completed",file="LogFile.txt",append=TRUE)
 
 #Identify replace the missing values as Unknown in categorical variables
 df_cat = data[sapply(data, is.factor) & colnames(data) != "DV"]
@@ -63,9 +67,10 @@ if(ncol(df_cat)>0)
   }
 
   #add string for missing value treatment
-  missing_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-  write.table(missing_df, "LogFile.csv", sep = ",", col.names = T, append = T)
-
+  write("Missing value treatment completed",file="LogFile.txt",append=TRUE)
+  #missing_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
+  #write.table(missing_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  write("Checking for categorical variables > 52 levels",file="LogFile.txt",append=TRUE)
   #Check for categorical variables with more than 52 levels and reduce them to the top 10 levels that
   #occur frequently
   for(i in names(df_cat))
@@ -109,8 +114,8 @@ if(ncol(df_cat)>0)
   }
 
   #add string to show reduced categorical values > 52
-  reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-  write.table(reduce_cat_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  #reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
+  #write.table(reduce_cat_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
   #**********dv leakage code begin*************
   df_factor_check<-data.frame()
@@ -180,7 +185,7 @@ cate_var_names <- names(df_cat)
 #bin the variables using woe binning
 #get the significance of these binned variables using chi square test.
 #Remove variables from highly correlated variable list that are not significant
-#check if muliticollinearity still exists and keep removing variables until vif drops below 5 for all variables
+#check if multicollinearity still exists and keep removing variables until vif drops below 5 for all variables
 #get the binned version of the continuous variables
 
 df<-data
@@ -209,6 +214,7 @@ for(i in names(df))
 
 df1<-df%>%data.frame()
 #creating correlation matrix for continuous variables
+write("Creating correlation matrix for continuous variables",file="LogFile.txt",append=TRUE)
 if(length(df1)>1)
 {
   df1<-df1[complete.cases(df1),]
@@ -223,8 +229,8 @@ if(length(df1)>1)
   corr_test_var<-subset(corr_val,Freq>=0.85)
 
   #add string to show continuous var treatment
-  reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-  write.table(reduce_cat_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  #reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
+  #write.table(reduce_cat_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
   #adding ".binned" to each variable
   ##New Change - Sai - Check if the df is not empty before operation
@@ -245,8 +251,9 @@ if(length(df1)>1)
   names(data_cont_binned)
 
   #add string to show binned variables
-  bin_df <- data.frame(unclass(summary(data_cont_binned)), check.names = FALSE, stringsAsFactors = FALSE)
-  write.table(bin_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  write("Binning Variables",file="LogFile.txt",append=TRUE)
+  #bin_df <- data.frame(unclass(summary(data_cont_binned)), check.names = FALSE, stringsAsFactors = FALSE)
+  #write.table(bin_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
   #removing original values of variables that have been binned
   for(i in var_del)
@@ -281,8 +288,9 @@ if(length(df1)>1)
     }
 
     #add string to show Chi sq test
-    chisq_df <- data.frame(unclass(summary(corr_var_chsq)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(chisq_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+	write("Chi Square test for Highly correlated variables",file="LogFile.txt",append=TRUE)
+    #chisq_df <- data.frame(unclass(summary(corr_var_chsq)), check.names = FALSE, stringsAsFactors = FALSE)
+    #write.table(chisq_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
     #remove the highly correlated variables that are not significant
     corr_var_insig<-as.character(corr_var_chsq[which(corr_var_chsq$p_value>0.05),1])
@@ -337,8 +345,9 @@ if(length(df1)>1)
   vfit_d= as.data.frame(vfit)
 
   #add string to show VIF
-  vif_df <- data.frame(unclass(summary(vfit_d)), check.names = FALSE, stringsAsFactors = FALSE)
-  write.table(vif_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  write("Calculating VIF",file="LogFile.txt",append=TRUE)
+  #vif_df <- data.frame(unclass(summary(vfit_d)), check.names = FALSE, stringsAsFactors = FALSE)
+  #write.table(vif_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
   rem_var<-as.character(rownames(vfit_d))
 
@@ -372,10 +381,14 @@ final_data_after_processing<-cbind(final_data_after_processing,select(data,.data
 names(final_data_after_processing)[names(final_data_after_processing)=="DV"] <- dv
 
 #add string to show summary of final pre-processed data
+write("Showing Final Data Summary",file="LogFile.txt",append=TRUE)
 final_df <- data.frame(unclass(summary(final_data_after_processing)), check.names = FALSE, stringsAsFactors = FALSE)
-write.table(final_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
+#final_df <- data.frame(unclass(summary(final_data_after_processing)), check.names = FALSE, stringsAsFactors = FALSE)
+#write.table(final_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
+benchmarking(dv)
 
 return (0)
 }

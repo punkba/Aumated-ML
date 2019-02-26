@@ -1,9 +1,9 @@
-Package: SampleApp
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.3)
-License: What license is it under?
-Encoding: UTF-8
+Package: AutomatedML
+Type: Package
+Title: OpenCPU Application
+Version: 1.0
+Date: 2019-02-26
+Author: Sai Prasadh
+Maintainer: Sai Prasadh <sai.prasadh@xyz.com>
+Description: This package enables AA Tool
 LazyData: true

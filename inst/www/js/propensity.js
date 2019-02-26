@@ -5,6 +5,6 @@ $(document).ready(function(){
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
-    
+    feather.replace();
 
 })

@@ -25,11 +25,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="uploadcsv-tab" data-toggle="tab" href="#uploadcsv" role="tab" aria-controls="uploadcsv" aria-selected="true">Upload CSV</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="manipulation-tab" data-toggle="tab" href="#manipulation" role="tab" aria-controls="manipulation" aria-selected="false">Variable Manipulation</a>
+                                <li class="nav-item disabled">
+                                    <a class="nav-link" id="manipulation-tab" data-toggle="tab" href="#manipulation" role="tab" aria-controls="manipulation" aria-selected="false">Variable Manipulation</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                                <li class="nav-item disabled">
+                                    <a class="nav-link" id="profiling-tab" data-toggle="tab" href="#profiling" role="tab" aria-controls="contact" aria-selected="false">Variable Profiling</a>
                                 </li>
                             </ul>
                         </div>
@@ -134,9 +134,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class='row'>
+                                            <div class='col-md'>
+                                                <div class='text-center'>
+                                                    <a id="varChangeLnk" href="#" target="_blank">
+        												<h5 class='text-center'><i data-feather="download" style="margin-right:5px"></i>
+        													Download the variable                  treatment Log file
+        												</h2>
+        											</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                                <div class="tab-pane fade" id="profiling" role="tabpanel" aria-labelledby="profiling-tab">...</div>
                             </div>
                         </div>
                     </div>
@@ -144,10 +155,10 @@
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdn.opencpu.org/opencpu-0.5.js"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
         <script src='js/propensity.js' type='text/javascript'></script>
         <script src='js/read_df.js' type='text/javascript'></script>
         <script src='js/var_change.js' type='text/javascript'></script>

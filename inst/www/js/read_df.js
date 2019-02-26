@@ -111,7 +111,9 @@ function getAndDisplayVariables(listInput){
 
 	$("#manipulation-tab").removeClass('disabled');
 	$("#uploadcsv-tab").removeClass('active');
+	$("#uploadcsv").removeClass('active');
 	$("#manipulation-tab").addClass('active');
+	$("#manipulation").addClass('active');
 }
 
 function createListElem(value,locToCreate){

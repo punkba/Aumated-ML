@@ -108,6 +108,10 @@ function getAndDisplayVariables(listInput){
 	for(elem = 0;elem < discrete.length;elem++){
 		createCheckBox(discrete[elem],elem);
 	}
+
+	$("#manipulation-tab").removeClass('disabled');
+	$("#uploadcsv-tab").removeClass('active');
+	$("#manipulation-tab").addClass('active');
 }
 
 function createListElem(value,locToCreate){

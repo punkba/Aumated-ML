@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+html,h1,h2h3,h4,h5,h5,a,p,ul,ol{
+    font-family: 'Raleway';
+}
+
+.navbar{
+    background: #173e43;
+}
+
+.nav-link, .navbar-brand{
+    color:#e1e8f0;
+    cursor:pointer;
+}
+
+.nav-link{
+    margin-right: 1em !important;
+}
+.nav-link:hover{
+    background:#e1e8f0;
+    color:#173e43;
+}
+
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+.navbar-toggler{
+    background:#fff !important;
+}
+
+html,body{
+    height:90%;
+}
+body{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start ;
+    padding:40px;
+    font:14px/1.5 'Raleway';
+    font-size: 1em;
+    color:#345;
+    background:#f0f2f4;
+}
+
+/*CSS styles to display file name after selection*/
+#customFile .custom-file-label:lang(en)::after {
+  content: "Select file...";
+}
+
+#customFile .custom-file-label:lang(en)::before {
+  content: "Click me";
+}
+
+.custom-file-label.selected:lang(en)::after {
+  content: "" !important;
+}

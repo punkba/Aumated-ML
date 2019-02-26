@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+html,h1,h2h3,h4,h5,h5,a,p,ul,ol{
+    font-family: 'Raleway';
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.navbar{
+    background: #173e43;
+}
+
+.nav-link, .navbar-brand{
+    color:#e1e8f0;
+    cursor:pointer;
+}
+
+.nav-link{
+    margin-right: 1em !important;
+}
+.nav-link:hover{
+    background:#e1e8f0;
+    color:#173e43;
+}
+
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+.navbar-toggler{
+    background:#fff !important;
+}
+
+.header{
+    background-image:url('https://www.recordedfuture.com/assets/machine-learning-cybersecurity-applications.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height:700px;
+}
+
+.overlay{
+    position: absolute;
+    min-height:100%;
+    min-width:100%;
+    left:0;
+    top:0;
+    background: rgba(244,244,244,0.79);
+}
+
+.description{
+    position: absolute;
+    top:30%;
+    margin:auto;
+    padding: 2em;
+}
+
+.description h1{
+    color:#173e43;
+}
+
+.description p{
+    color:#677077;
+    font-size:20px;
+    width:50%;
+    line-height: 1.5;
+}
+
+.propensity{
+    margin: 4em 0;
+    padding: 1em;
+    position: relative;
+}
+
+.propensity h1{
+    color: #173e43;
+    margin: 2em;
+}
+
+.propensity img{
+    height:75%;
+    width:100%;
+    border-radius:50%;
+}
+
+.propensity span{
+    display: block;
+    color: #888;
+    position: absolute;
+    left: 135px;
+}
+
+.propensity .desc{
+    padding: 2em;
+    border-left: 4px solid #10828C;
+}
+
+.propensity .desc h3{
+    color: #10828C;
+}
+
+.propensity .desc p{
+    line-height: 2;
+    color: #677077;
+}
+
+.propensity button{
+	border:1px  solid #10828C;
+	background: #173e43;
+	color:#fff;
+}
+
+.propensity button:hover{
+	border:1px  solid #10828C;
+	background: #fff;
+	color:#173e43;
+}

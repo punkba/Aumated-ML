@@ -31,33 +31,27 @@ $('#varChangeBtn').on('click',function(){
 });
 
 function initiatePreProcess(){
-						var reqVarImp = $("#plotdiv").rplot('top_var_graph',{'target.var.name':dvname,
-																			 'ds': ds}
-													       )
-													 .fail(function()
-														    {
-																alert("Server error: " + reqVarImp.responseText);
-															})
-													  .always(function(){
-														  console.log('plotted varImp');
-													  });
-						var reqVarList = ocpu.call('imp_var_list',
-												   {'target.var.name':dvname},
-												   function(session){
-														session.getObject(function(output){
-														tempOut1 = output;
-														/* Plot the variable profile by default for the first variable  in
-															the dropdown*/
-														plotProfilingGraph(output[0]);
-														$('#varDropdownMenuButton').html(output[0]);
-														populateDropList(output);
-													   }).fail(function()
-														    {
-																alert("Server error: " + reqVarImp.responseText);
-															}).always(function(){
-																console.log('populateDropList');
-															})
-												   });
+	var reqVarImp = $("#plotdiv").rplot('top_var_graph',{'target.var.name':dvname,'ds': ds}).fail(function()
+	{
+		alert("Server error: " + reqVarImp.responseText);
+	}).always(function(){
+		console.log('plotted varImp');
+	});
+	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
+		session.getObject(function(output){
+		tempOut1 = output;
+		/* Plot the variable profile by default for the first variable  in
+		the dropdown*/
+		plotProfilingGraph(output[0]);
+		$('#varDropdownMenuButton').html(output[0]);
+		populateDropList(output);
+		}).fail(function()
+		{
+			alert("Server error: " + reqVarImp.responseText);
+		}).always(function(){
+			console.log('populateDropList');
+		})
+	});
 }
 
 var tempOut1='';

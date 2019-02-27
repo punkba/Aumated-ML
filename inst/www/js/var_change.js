@@ -16,7 +16,7 @@ $('#varChangeBtn').on('click',function(){
 								  	session.getObject(function(returnCode){
 										if(returnCode == 0)
 										{
-											//initiatePreProcess();
+											initiatePreProcess();
 											$('#varChangeLnk').attr('href',session.getFileURL('LogFile.txt'));
 										}
 									});

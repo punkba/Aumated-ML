@@ -10,7 +10,7 @@ $(document).ready(function(){
     var modelLink = "";
 	var modelSummaryPath="";
 
-	isChecked="";
+	isChecked=$('input[name=customRadio]:checked', '#modelsList').val();
 
 	$('#modelsList input').on('change', function() {
 		isChecked = $('input[name=customRadio]:checked', '#modelsList').val();

@@ -43,6 +43,8 @@ $(document).ready(function(){
 										populateResults(dataOutput);
 										$("#modelDownloadLink").attr('href',session.getFileURL(dataOutput[1]['modelSaveLocation'].toString()));
 										$("#modelDownloadLink").show();
+										$("#results-tab").removeClass('disabled');
+										$("#scoring-tab").removeClass('disabled');
 									}).fail(function(){
 
 									});

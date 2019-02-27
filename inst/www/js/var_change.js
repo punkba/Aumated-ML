@@ -26,7 +26,8 @@ $('#varChangeBtn').on('click',function(){
 									$('#varChangeLnk').show();
 								});
 	//Get the list of variable names after updation by user for passing it to R
-
+	$("#profiling-tab").removeClass('disabled');
+	$("#modelling-tab").removeClass('disabled');
 });
 });
 

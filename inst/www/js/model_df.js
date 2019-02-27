@@ -10,6 +10,12 @@ $(document).ready(function(){
     var modelLink = "";
 	var modelSummaryPath="";
 
+	isChecked="";
+
+	$('#modelsList input').on('change', function() {
+		isChecked = $('input[name=customRadio]:checked', '#modelsList').val();
+	});
+
 	$("#modelSubmit").on("click", function(){
 
 		$("#modelSubmit").attr("disabled", "disabled");
@@ -17,12 +23,6 @@ $(document).ready(function(){
 		//Check which model is selected
 		var dvname=$("#dvname").val();
 		var preddv=$("#preddv").val();
-
-		isChecked="";
-
-		$('#modelsList input').on('change', function() {
-   			isChecked = $('input[name=customRadio]:checked', '#modelsList').val();
-		});
 
 		$('#building_inter').show();
     	$("#building_inter").text("Training the Model... Will be ready in a jiffy!");

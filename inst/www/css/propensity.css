@@ -60,17 +60,3 @@ body{
 	height:230px;
     overflow-y: auto;
 }
-
-#plotdiv1 {
-  position: relative;
-  width: 100%;
-  height: 70%;
-  border: solid gray 1px;
-}
-
- #plotdiv {
-  position: relative;
-  width: 100%;
-  height: 70%;
-  border: solid gray 1px;
-}

@@ -18,10 +18,10 @@ $(document).ready(function(){
 		var dvname=$("#dvname").val();
 		var preddv=$("#preddv").val();
 
-		var isChecked="";
+		isChecked="";
 
 		$('#modelsList input').on('change', function() {
-   			isChecked = $('input[name=customRadio]:checked', 'modelsList').val();
+   			isChecked = $('input[name=customRadio]:checked', '#modelsList').val();
 		});
 
 		$('#building_inter').show();

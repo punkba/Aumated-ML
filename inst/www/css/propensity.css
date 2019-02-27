@@ -60,3 +60,9 @@ body{
 	height:230px;
     overflow-y: auto;
 }
+
+.cardOuter{
+    width:80%;
+    left:10%;
+    height:100%;
+}

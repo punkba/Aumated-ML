@@ -34,7 +34,7 @@
             </div>
             <div class='row'>
                 <div class='content w-100 p-3'  id='mainContent'>
-                    <div class="card">
+                    <div class="card cardOuter">
                         <div class="card-header">
                             <ul class="nav nav-pills card-header-pills nav-fill"  id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -211,19 +211,19 @@
                                                               <label class="custom-control-label" for="LR">Logistic Regression</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                              <input type="radio" id="RF" name="customRadio" class="custom-control-input" value='RF' checked>
+                                                              <input type="radio" id="RF" name="customRadio" class="custom-control-input" value='RF' >
                                                               <label class="custom-control-label" for="RF">Random Forest</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                              <input type="radio" id="SVM" name="customRadio" class="custom-control-input" value='SVM' checked>
+                                                              <input type="radio" id="SVM" name="customRadio" class="custom-control-input" value='SVM' >
                                                               <label class="custom-control-label" for="SVM">Support Vector Machine</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                              <input type="radio" id="GBM" name="customRadio" class="custom-control-input" value='GBM' checked>
+                                                              <input type="radio" id="GBM" name="customRadio" class="custom-control-input" value='GBM'>
                                                               <label class="custom-control-label" for="GBM">Gradient Boosting Method</label>
                                                             </div>
                                                             <div class="custom-control custom-radio">
-                                                              <input type="radio" id="NB" name="customRadio" class="custom-control-input" value='NB' checked>
+                                                              <input type="radio" id="NB" name="customRadio" class="custom-control-input" value='NB'>
                                                               <label class="custom-control-label" for="NB">Naive Bayes</label>
                                                             </div>
                                                         </form>
@@ -244,7 +244,7 @@
                                         <div class="row">
                                             <div class='col-md py-2'>
                                                 <div class='text-center'>
-                                                    <p id='building_inter'>Hi</p>
+                                                    <p id='building_inter'></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,7 +294,10 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class='col-md'>
+                                        <div class='col-4'>
+                                            &nbsp
+                                        </div>
+                                        <div class='col-8'>
                                             <div class='text-center'>
                                                 <a id="modelDownloadLink" href="#" download>
                                                     <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>

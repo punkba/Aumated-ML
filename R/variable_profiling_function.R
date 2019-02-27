@@ -18,13 +18,14 @@ variable_profiling_function  <- function(dv, vars) {
   df1$meaniv=meaniv
   df1$levels=unique(dat[,vars])
   
-  ggplot()+geom_col(data=df1, aes(y=total,x=levels))+labs(title = "Bivariate Analysis") + xlab(vars) +geom_line(data=df1, aes(y=meaniv*100,x=levels))+theme(
-    panel.background = element_rect(fill = "aliceblue",
-                                    colour = "lightblue",
-                                    size = 0.5),
-    panel.grid.major = element_line(size = 0.5, linetype = 'solid',
-                                    colour = "white"), 
-    panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                    colour = "lightblue")
-  )+scale_y_continuous(sec.axis = sec_axis(~.*.75, name = "[%] Event Rate"))
+  ggplot()+geom_col(data=df1, aes(y=total,x=levels))+labs(title = "Bivariate Analysis") + xlab(vars) +geom_hline(aes(yintercept = mean(meaniv)*100))+geom_line(
+    data=df1, aes(y=meaniv*100,x=levels))+theme(
+      panel.background = element_rect(fill = "aliceblue",
+                                      colour = "lightblue",
+                                      size = 0.5),
+      panel.grid.major = element_line(size = 0.5, linetype = 'solid',
+                                      colour = "white"), 
+      panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
+                                      colour = "lightblue")
+    )+scale_y_continuous(sec.axis = sec_axis(~.*.75, name = "[%] Event Rate"))
 }

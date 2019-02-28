@@ -26,13 +26,25 @@ imp_var_list<- function(target.var.name){
     #subset all integer variables in dataset
     allIntVarDF <- data[,sapply(data,is.integer)]
     
-    #Int variables with levels less than 12
-    intVarsLen <- apply(allIntVarDF,2,function(i) length(unique(i))<=12)
-    intvar<-names(intVarsLen)
+    if(class(allIntVarDF) == "data.frame")
+    {
+      #Int variables with levels less than 12
+      intVarsLen <- apply(allIntVarDF,2,function(i) length(unique(i))<=12)
+      intvar<-names(intVarsLen)
+      
+      #Int variables with more than 12 levels
+      intbin_var <- allIntVarDF[,names(intVarsLen[intVarsLen==FALSE])]
+      intbin_var2<- names(intbin_var)  
+    }
     
-    #Int variables with more than 12 levels
-    intbin_var <- allIntVarDF[,names(intVarsLen[intVarsLen==FALSE])]
-    intbin_var2<- names(intbin_var)
+    if(class(allIntVarDF) != "data.frame")
+    {
+      intbin_var2 <- vector('character')
+      intvar <- vector('numeric')
+    }
+      
+    
+    
     numvars <- names(data[,sapply(data,is.numeric)])
     numbin_var<-setdiff(numvars,intvar)
     

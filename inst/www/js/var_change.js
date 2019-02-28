@@ -35,24 +35,20 @@ $('#varChangeBtn').on('click',function(){
 									alert('Server error: '+preProcessReq.responseText);
 								}).always(function(){
 								});
+
 	$("plotdiv").on("change",function(){
 		if(plotdiv.complete && plotdiv.naturalHeight != 0)
 		{
-			plotdivInd = true;
+			$("plotdiv1").on("change",function(){
+				if(plotdiv1.complete && plotdiv1.naturalHeight != 0)
+				{
+					$("#profiling-tab").removeClass('disabled');
+					$("#modelling-tab").removeClass('disabled');
+				}
+			});
 		}
 	});
 
-	$("plotdiv1").on("change",function(){
-		if(plotdiv1.complete && plotdiv1.naturalHeight != 0)
-		{
-			plotdivInd1 = true;
-		}
-	});
-
-	if(plotdivInd && plotdivInd1){
-		$("#profiling-tab").removeClass('disabled');
-		$("#modelling-tab").removeClass('disabled');
-	}
 });
 });
 

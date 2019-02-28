@@ -36,10 +36,10 @@ $('#varChangeBtn').on('click',function(){
 								}).always(function(){
 								});
 
-	$("#plotdiv").on("change",function(){
+	$("#plotdiv").on("load",function(){
 		if(plotdiv.complete && plotdiv.naturalHeight != 0)
 		{
-			$("#plotdiv1").on("change",function(){
+			$("#plotdiv1").on("load",function(){
 				if(plotdiv1.complete && plotdiv1.naturalHeight != 0)
 				{
 					$("#profiling-tab").removeClass('disabled');

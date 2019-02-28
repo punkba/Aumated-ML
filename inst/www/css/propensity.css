@@ -72,9 +72,9 @@ body{
 }
 
 .nav-link{
-    color: #345;
+    color:#345;
 }
 
-.active{
+.nav-link .active{
     color: #fff !important;
 }

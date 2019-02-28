@@ -7,4 +7,7 @@ $(document).ready(function(){
 
     feather.replace();
 
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
 })

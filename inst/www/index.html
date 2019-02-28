@@ -74,15 +74,18 @@
                                         </div>
                                         <div class='form-row'>
                                             <div class="form-group col-md-4">
-                                                <label for="dvname">Target Variable</label>
+                                                <label for="dvname">Target Variable</label><sup data-toggle="popover" data-content="The dependent variabel column which needs to be predicted">
+                                                    <i data-feather='help-circle' height="16" width="16" id='targetHelp' stroke="#007bff" style="margin-left:5px"></i></sup>
                                                 <input type="text" class="form-control" id="dvname" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="preddv">Class to Predict</label>
+                                                <label for="preddv">Class to Predict</label><sup data-toggle="popover" data-content="Observation's(example: 1 or 0/Yes or No) which needs to be predicted in target variable">
+                                                    <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='dvHelp' style="margin-left:5px"></i></sup>
                                                 <input type="text" class="form-control" id="preddv" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="data-split">Data Split (%)</label>
+                                                <label for="data-split">Data Split (%)</label><sup data-toggle="popover" data-content="Percentage(0-100) in which the uploaded dataset must be spit into test and train sets">
+                                                    <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='splitHelp' style="margin-left:5px"></i></sup>
                                                 <input type="text" class="form-control" id="data-split" placeholder="" required>
                                             </div>
                                             <div class='form-group col-md-12'>
@@ -154,7 +157,7 @@
                                         <div class='row'>
                                             <div class='col-md py-3'>
                                                 <div class='text-center'>
-                                                    <button type="submit" class="btn btn-outline-primary" id='varChangeBtn'>Make Changes</button>
+                                                    <button type="submit" class="btn btn-outline-primary" id='varChangeBtn'>Start Preprocessing</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +166,7 @@
                                                 <div class='text-center'>
                                                     <a id="varChangeLnk" href="#" download>
         												<h5 class='text-center'><i data-feather="download" style="margin-right:5px"></i>
-        													Download the variable treatment Log file
+        													Download the Preprocessing Log File
         												</h2>
         											</a>
                                                 </div>

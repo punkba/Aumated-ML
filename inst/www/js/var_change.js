@@ -8,8 +8,19 @@ $('#varChangeBtn').on('click',function(){
 	//Disable the button for the user
 	$('#varChangeBtn').prop("disabled",true);
 
+	var input;
+
+	if (checkedVars.length > 0)
+	{
+		input = checkedVars;
+	}
+	else{
+		input = 0;
+	}
+	console.log("Input is: "+input);
+	
 	var preProcessReq = ocpu.call('preprocessing',
-								 {'conv_var_names':checkedVars,
+								 {'conv_var_names':input,
 							 	  'dv' : dvname
 							  	 },
 								 function(session){

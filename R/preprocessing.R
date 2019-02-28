@@ -8,7 +8,7 @@ names(data)[names(data)==dv] <- "DV"
 
 variables = read.csv(file='C:/opencpuapp_ip/variable_list.csv', header=TRUE, sep=",")
 categorical = levels(variables$categorical)
-if(length(conv_var_names) != 0)
+if(conv_var_names != 0)
 {
   categorical = append(categorical, conv_var_names)
   disc_var_names = levels(variables$discrete)[levels(variables$discrete) != conv_var_names]

@@ -269,7 +269,7 @@ if(length(df1)>1)
 
   data_cont_binned <- woeBinning::woe.binning.deploy(data, binning)
   bin_list <- names(data_cont_binned)
-  Bin_List_fin <- list(Binned_List=I(bin_list)))
+  Bin_List_fin <- list(Binned_List=I(bin_list))
   #add string to show binned variables
   write("List of Binned Variables",file="LogFile.txt",append=TRUE)
   lapply(Bin_List_fin, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))

@@ -1,8 +1,6 @@
 $(document).ready(function(){
 $('#varChangeLnk').hide();
-//Get the variable list after uploading the data
-
-
+//Get the variable list after uploading the dataset
 
 $('#varChangeBtn').on('click',function(){
 	//Disable the button for the user
@@ -37,9 +35,24 @@ $('#varChangeBtn').on('click',function(){
 									alert('Server error: '+preProcessReq.responseText);
 								}).always(function(){
 								});
-	//Get the list of variable names after updation by user for passing it to R
-	$("#profiling-tab").removeClass('disabled');
-	$("#modelling-tab").removeClass('disabled');
+	$("plotdiv").on("change",function(){
+		if(plotdiv.complete && plotdiv.naturalHeight != 0)
+		{
+			plotdivInd = true;
+		}
+	});
+
+	$("plotdiv1").on("change",function(){
+		if(plotdiv1.complete && plotdiv1.naturalHeight != 0)
+		{
+			plotdivInd1 = true;
+		}
+	});
+
+	if(plotdivInd && plotdivInd1){
+		$("#profiling-tab").removeClass('disabled');
+		$("#modelling-tab").removeClass('disabled');
+	}
 });
 });
 

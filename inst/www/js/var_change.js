@@ -95,9 +95,9 @@ function plotProfilingGraph(variableName){
 		varImpPreImgLoc = loc+'graphics/last';
 
 		$('#plotdiv1').attr('src',varImpPreImgLoc);
-		$('#pdfLink').attr('src',varImpPreImgLoc+'/pdf');
-		$('#pngLink').attr('src',varImpPreImgLoc+'/png');
-		$('#svgLink').attr('src',varImpPreImgLoc+'/svg');
+		$('#pdfLink').attr('href',varImpPreImgLoc+'/pdf');
+		$('#pngLink').attr('href',varImpPreImgLoc+'/png');
+		$('#svgLink').attr('href',varImpPreImgLoc+'/svg');
 
 	}).fail(function()
 	{

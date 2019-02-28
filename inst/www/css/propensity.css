@@ -66,3 +66,15 @@ body{
     left:10%;
     height:100%;
 }
+
+.disabled{
+    color:#eceff1 !important;
+}
+
+.nav-link{
+    color: #345;
+}
+
+.active{
+    color: #fff !important;
+}

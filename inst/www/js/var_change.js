@@ -86,11 +86,19 @@ function populateDropList(dataInput){
 function plotProfilingGraph(variableName){
 
 	$('#plotdiv1').attr('src','#');
+	$('#pdfLink').attr('src','#');
+	$('#pngLink').attr('src','#');
+	$('#svgLink').attr('src','#');
 
 	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last'
+		varImpPreImgLoc = loc+'graphics/last';
+
 		$('#plotdiv1').attr('src',varImpPreImgLoc);
+		$('#pdfLink').attr('src',varImpPreImgLoc+'/pdf');
+		$('#pngLink').attr('src',varImpPreImgLoc+'/png');
+		$('#svgLink').attr('src',varImpPreImgLoc+'/svg');
+
 	}).fail(function()
 	{
 		alert("Server error: " + reqVarImp.responseText);

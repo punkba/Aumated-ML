@@ -1,5 +1,5 @@
 
-scoringmodule <- function(filename) {
+scoringmodule <- function(filename,modelSel) {
 
   library(VIF)
   library(EvaluationMeasures)
@@ -625,7 +625,10 @@ scoringmodule <- function(filename) {
   #threshold<-k_stat_value(modelInput,trainD,testD,posit_class,model)
   threshold<-data_pts$Threshold
 
-  the_model<-load("C:/opencpuapp_ip/lr_model.RData")
+  modelName <- paste(tolower(modelSel),'_model.RData',sep="")
+  modelPath <- "C:/opencpuapp_ip/"
+  the_model<-load(paste(modelPath,modelName,sep=""))
+  
   sum_model <- get(the_model)
   if(! (model %in% c('SVM','NB')))  {
     pred <- predict(sum_model, newdata=testD, type=typeResp,se.fit=FALSE)

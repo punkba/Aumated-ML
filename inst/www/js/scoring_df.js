@@ -18,7 +18,8 @@ $(document).ready(function(){
         $("#submitbutton2").attr("disabled", "disabled");
 
         var req = ocpu.call("scoringmodule", {
-            filename : inputFileName
+            filename : inputFileName,
+            modelSel:isChecked
         }, function(session){
             $('#scoreDownloadLink').attr('href',session.getFileURL('scoredData.csv'));
             $('#scoreDownloadLink').show();

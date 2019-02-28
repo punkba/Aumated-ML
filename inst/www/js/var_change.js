@@ -48,7 +48,6 @@ $('#varChangeBtn').on('click',function(){
 			});
 		}
 	});
-
 });
 });
 

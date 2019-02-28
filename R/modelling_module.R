@@ -91,15 +91,9 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
-    num_var<- as.vector(data_type$continuous)
-    num_var <- num_var[!is.na(num_var)]
 
     for (value in cat_var){
       cleaned_data[value]<- as.factor(cleaned_data[[value]])
-    }
-
-    for (value in num_var){
-      cleaned_data[value]<- as.numeric(cleaned_data[[value]])
     }
 
     names(cleaned_data)[names(cleaned_data)==dv] <- "DV"

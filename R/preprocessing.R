@@ -5,10 +5,10 @@ library(dplyr)
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"
-
+#df_temp_un <- data
 variables = read.csv(file='C:/opencpuapp_ip/variable_list.csv', header=TRUE, sep=",")
 categorical = levels(variables$categorical)
-if(conv_var_names != 0)
+if(length(conv_var_names) != 0)
 {
   categorical = append(categorical, conv_var_names)
   disc_var_names = levels(variables$discrete)[levels(variables$discrete) != conv_var_names]
@@ -17,7 +17,7 @@ if(conv_var_names != 0)
 }
 
 cat_var_names <- categorical
-
+cat_un_names <-list()
 ######################################################################################################################################################
 #Categorical variables treatment
 ######################################################################################################################################################
@@ -26,6 +26,7 @@ cat_var_names <- categorical
 #Check for categorical variables with more than 52 levels and reduce them to the top 10 levels that occur frequently
 
 #convert categorical variables to factors and unique variables treatment
+write("Convert categorical variables to factors and unique variables treatment (Remove >90% similar values",file="LogFile.txt",append=TRUE)
 for(j in cat_var_names)
 {
   data[,j]<-as.factor(data[,j])
@@ -34,15 +35,23 @@ for(j in cat_var_names)
     data<-data[, names(data) != j]
   }
 }
-
+dropList <- names(data)
+df_temp_un <- data[, !colnames(data) %in% dropList]
+cat_un_names<-names(df_temp_un)
+cat_unique <- list(Unique=I(cat_un_names))
 #add string for cat var treatment
 #cat_var_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
 #write.table(cat_var_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
+write("The List of categorical variables removed after unique value treatment",file="LogFile.txt",append=TRUE)
+lapply(cat_unique, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
 write("Categorical variables treatment completed",file="LogFile.txt",append=TRUE)
+
 
 #Identify replace the missing values as Unknown in categorical variables
 df_cat = data[sapply(data, is.factor) & colnames(data) != "DV"]
+
+unknown_vars=c()
 
 if(ncol(df_cat)>0)
 {
@@ -54,6 +63,9 @@ if(ncol(df_cat)>0)
     {}else{
       levels[length(levels) + 1] <- 'Unknown'
       df_cat[,i] <- factor(df_cat[,i], levels = levels)
+	  cnt <- table(df_cat[,i])['Unknown']
+      unknown_vars=c(unknown_vars,c(i,cnt))
+
     }
 
     # refactor to include "Unknown" as a factor level
@@ -67,19 +79,22 @@ if(ncol(df_cat)>0)
   }
 
   #add string for missing value treatment
-  write("Missing value treatment completed",file="LogFile.txt",append=TRUE)
-  #missing_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-  #write.table(missing_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  Unknown_list <- list(Unknown=I(unknown_vars))
+  write("Missing value treatment",file="LogFile.txt",append=TRUE)
+  lapply(Unknown_list, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
+
   write("Checking for categorical variables > 52 levels",file="LogFile.txt",append=TRUE)
   #Check for categorical variables with more than 52 levels and reduce them to the top 10 levels that
   #occur frequently
+  cat_level_list = c()
   for(i in names(df_cat))
   {
     column<-df_cat[,i]
     uniq_lvls_cnt <- length(unique(column))
     temp<-as.data.frame(column)
     if (uniq_lvls_cnt>52)
-    { temp<-data.frame()
+    {
+	temp<-data.frame()
     cat_freq_cnt <- data.frame(table(column))
     cat_freq_cnt <- cat_freq_cnt[ which(cat_freq_cnt$column!='Unknown' ),]
     cat_sort <- cat_freq_cnt[order(-cat_freq_cnt$Freq),]
@@ -111,7 +126,12 @@ if(ncol(df_cat)>0)
       }
     }}
     df_cat[,i]<-temp
+	cat_level_list = c(cat_level_list,c(column,names(temp)))
   }
+
+  cat_level_list_fin <- list(Cat_52list=I(cat_level_list))
+  write("Categorical variable treatment list",file="LogFile.txt",append=TRUE)
+  lapply(cat_level_list_fin, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
 
   #add string to show reduced categorical values > 52
   #reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
@@ -248,10 +268,11 @@ if(length(df1)>1)
   tabulate.binning <- woeBinning::woe.binning.table(binning)
 
   data_cont_binned <- woeBinning::woe.binning.deploy(data, binning)
-  names(data_cont_binned)
-
+  bin_list <- names(data_cont_binned)
+  Bin_List_fin <- list(Binned_List=I(bin_list)))
   #add string to show binned variables
-  write("Binning Variables",file="LogFile.txt",append=TRUE)
+  write("List of Binned Variables",file="LogFile.txt",append=TRUE)
+  lapply(Bin_List_fin, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
   #bin_df <- data.frame(unclass(summary(data_cont_binned)), check.names = FALSE, stringsAsFactors = FALSE)
   #write.table(bin_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
@@ -275,7 +296,9 @@ if(length(df1)>1)
     corr_var<-c(corr_var,corr_test_var$Var2)
     corr_var_unique<-unique(corr_var)
 
-
+    Corr_List_fin <- list(Correlated_List=I(corr_var_unique))
+	write("Unique list of correlated variables",file="LogFile.txt",append=TRUE)
+	lapply(Corr_List_fin, function(x) write.table( data.frame(x), 'LogFile.txt'  , append= T, sep=',' ))
     #getting the chi sq for each highly correlated variable
     corr_var_chsq <- data.frame()
 
@@ -288,7 +311,7 @@ if(length(df1)>1)
     }
 
     #add string to show Chi sq test
-	write("Chi Square test for Highly correlated variables",file="LogFile.txt",append=TRUE)
+	write("Chi Square test for the above Highly correlated variables completed",file="LogFile.txt",append=TRUE)
     #chisq_df <- data.frame(unclass(summary(corr_var_chsq)), check.names = FALSE, stringsAsFactors = FALSE)
     #write.table(chisq_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
@@ -346,8 +369,8 @@ if(length(df1)>1)
 
   #add string to show VIF
   write("Calculating VIF",file="LogFile.txt",append=TRUE)
-  #vif_df <- data.frame(unclass(summary(vfit_d)), check.names = FALSE, stringsAsFactors = FALSE)
-  #write.table(vif_df, "LogFile.csv", sep = ",", col.names = T, append = T)
+  vif_df <- data.frame(unclass(summary(vfit_d)), check.names = FALSE, stringsAsFactors = FALSE)
+  write.table(vif_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 
   rem_var<-as.character(rownames(vfit_d))
 

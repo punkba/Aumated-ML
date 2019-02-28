@@ -60,8 +60,8 @@ $(document).ready(function(){
 
 		function getResultChartsAndDisplay(session){
 			var base_url = session.getLoc();
-			var liftUrl = base_url +'graphics/2';
-			$("#liftChart").attr('src',liftUrl);
+			var gainUrl = base_url +'graphics/2';
+			$("#gainChart").attr('src',gainUrl);
 			var varImpUrl = base_url +'graphics/3';
 			$("#varImpChart").attr('src',varImpUrl);
 		}

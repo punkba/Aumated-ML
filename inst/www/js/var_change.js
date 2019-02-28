@@ -18,7 +18,7 @@ $('#varChangeBtn').on('click',function(){
 		input = 0;
 	}
 	console.log("Input is: "+input);
-	
+
 	var preProcessReq = ocpu.call('preprocessing',
 								 {'conv_var_names':input,
 							 	  'dv' : dvname
@@ -29,12 +29,13 @@ $('#varChangeBtn').on('click',function(){
 										{
 											initiatePreProcess();
 											$('#varChangeLnk').attr('href',session.getFileURL('LogFile.txt'));
+											$('#varChangeLnk').show();
 										}
+
 									});
 								}).fail(function(){
 									alert('Server error: '+preProcessReq.responseText);
 								}).always(function(){
-									$('#varChangeLnk').show();
 								});
 	//Get the list of variable names after updation by user for passing it to R
 	$("#profiling-tab").removeClass('disabled');
@@ -43,12 +44,18 @@ $('#varChangeBtn').on('click',function(){
 });
 
 function initiatePreProcess(){
-	var reqVarImp = $("#plotdiv").rplot('top_var_graph',{'target.var.name':dvname,'ds': ds}).fail(function()
+
+	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
+		loc = session.getLoc();
+		varImpPreImgLoc = loc+'graphics/last'
+		$('#plotdiv').attr('src',varImpPreImgLoc);
+	}).fail(function()
 	{
 		alert("Server error: " + reqVarImp.responseText);
 	}).always(function(){
-		console.log('plotted varImp');
+
 	});
+	
 	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
 		session.getObject(function(output){
 		tempOut1 = output;
@@ -64,6 +71,7 @@ function initiatePreProcess(){
 			console.log('populateDropList');
 		})
 	});
+
 }
 
 var tempOut1='';

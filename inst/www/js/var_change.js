@@ -55,7 +55,7 @@ function initiatePreProcess(){
 	}).always(function(){
 
 	});
-	
+
 	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
 		session.getObject(function(output){
 		tempOut1 = output;
@@ -84,17 +84,15 @@ function populateDropList(dataInput){
 }
 
 function plotProfilingGraph(variableName){
-	var reqProfileInitGraph = $('#plotdiv1').rplot('variable_profiling_function',
-												  {'dv':dvname,'vars':variableName})
-											.fail(
-												function()
-													{
-														alert("Server error: " + reqProfileInitGraph.responseText);
-													}
-											)
-											.always(
-												function(){
-													console.log('plotted varImp');
-												}
-											);
+
+	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
+		loc = session.getLoc();
+		varImpPreImgLoc = loc+'graphics/last'
+		$('#plotdiv1').attr('src',varImpPreImgLoc);
+	}).fail(function()
+	{
+		alert("Server error: " + reqVarImp.responseText);
+	}).always(function(){
+
+	});
 }

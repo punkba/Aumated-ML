@@ -43,6 +43,10 @@ body{
     background:#f0f2f4;
 }
 
+.content{
+    min-width:534px;
+    min-height:1108px;
+}
 /*CSS styles to display file name after selection*/
 #customFile .custom-file-label:lang(en)::after {
   content: "Select file...";
@@ -55,6 +59,7 @@ body{
 .custom-file-label.selected:lang(en)::after {
   content: "" !important;
 }
+
 
 .cardList{
 	height:230px;

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href='css/propensity.css' rel='stylesheet' type='text/css'>
-        <style>
+        <!--<style>
             #plotdiv1 {
               position: relative;
               width:500px;
@@ -18,14 +18,17 @@
               width:500px;
               height:400px;
               border: solid gray 1px;
-            }
-        </style>
+            }*/
+        </style>-->
     </head>
     <body>
         <div class='container'>
             <div class='row'>
                 <nav class='navbar navbar-expand-lg fixed-top'>
-                    <a class='navbar-brand' href='#'>Propensity Model</a>
+                    <a class='navbar-brand' href=#>Home</a>
+                    <ul class="nav navbar-nav navbar-brand ml-auto">
+                        <li><a class='navbar-brand' href='#'>Automated ML Tool</a></li>
+                    </ul>
                     <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navBarSupportedContent'
                     aria-controls='navBarSupportedContent' aria-expanded='false' aria-label='toggle-navigation'>
                         <span class='navbar-toggler-icon'></span>
@@ -38,13 +41,13 @@
                         <div class="card-header">
                             <ul class="nav nav-pills card-header-pills nav-fill"  id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="uploadcsv-tab" data-toggle="tab" href="#uploadcsv" role="tab" aria-controls="uploadcsv" aria-selected="true">Upload CSV</a>
+                                    <a class="nav-link active" id="uploadcsv-tab" data-toggle="tab" href="#uploadcsv" role="tab" aria-controls="uploadcsv" aria-selected="true">Dataset Selection</a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link disabled" id="manipulation-tab" data-toggle="tab" href="#manipulation" role="tab" aria-controls="manipulation" aria-selected="false">Variable Manipulation</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" id="profiling-tab" data-toggle="tab" href="#profiling" role="tab" aria-controls="profiling" aria-selected="false">Variable Profiling</a>
+                                    <a class="nav-link" id="profiling-tab" data-toggle="tab" href="#profiling" role="tab" aria-controls="profiling" aria-selected="false">Variable Profiling</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" id="modelling-tab" data-toggle="tab" href="#modelling" role="tab" aria-controls="modelling" aria-selected="false">Build Model</a>
@@ -74,19 +77,19 @@
                                         </div>
                                         <div class='form-row'>
                                             <div class="form-group col-md-4">
-                                                <label for="dvname">Target Variable</label><sup data-toggle="popover" data-content="The dependent variabel column which needs to be predicted">
+                                                <label for="dvname">Target Variable</label><sup data-toggle="popover" data-content="The dependent variable column which needs to be predicted">
                                                     <i data-feather='help-circle' height="16" width="16" id='targetHelp' stroke="#007bff" style="margin-left:5px"></i></sup>
                                                 <input type="text" class="form-control" id="dvname" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="preddv">Class to Predict</label><sup data-toggle="popover" data-content="Observation's(example: 1 or 0/Yes or No) which needs to be predicted in target variable">
+                                                <label for="preddv">Target Class</label><sup data-toggle="popover" data-content="Observation's (example: 1 or 0/Yes or No) which needs to be predicted in target variable">
                                                     <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='dvHelp' style="margin-left:5px"></i></sup>
                                                 <input type="text" class="form-control" id="preddv" placeholder="" required>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label for="data-split">Data Split (%)</label><sup data-toggle="popover" data-content="Percentage(0-100) in which the uploaded dataset must be spit into test and train sets">
+                                                <label for="data-split">Data Split (%)</label><sup data-toggle="popover" data-content="Percentage (0-100) in which the uploaded dataset must be spit into test and train sets">
                                                     <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='splitHelp' style="margin-left:5px"></i></sup>
-                                                <input type="text" class="form-control" id="data-split" placeholder="" required>
+                                                <input type="text" class="form-control" id="data-split" placeholder="80" required>
                                             </div>
                                             <div class='form-group col-md-12'>
                                                 <div class='text-center'>
@@ -177,33 +180,51 @@
                                 <div class="tab-pane fade" id="profiling" role="tabpanel" aria-labelledby="profiling-tab">
                                     <div class='container'>
                                         <div class='row'>
-                                            <div class="col-md py-3">
-                                                <div class="dropdown">
-            										<button class="btn btn-outline-primary dropdown-toggle float-right" type="button" id="varDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            											Variables
-            										</button>
-            										<div class="dropdown-menu" id='varProfileOptions' aria-labelledby="dropdownMenuButton">
-            										</div>
-            									</div>
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class="col-md">
-                                                <div class='float-right'>
-                                                    <a href="#" id='pdfLink' download>pdf</a>
-                                                    <a href="#" id='svgLink' download>svg</a>
-                                                    <a href="#" id='pngLink' download>png</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class='col-md-6'>
-                                                <img class="img-fluid" alt="Variable-Importance" id='plotdiv'>
-                                            </div>
-                                            <div class='col-md-6'>
-                                                <img class="img-fluid" alt="Variable-Profile" id='plotdiv1'>
-                                            </div>
-                                        </div>
+											<div class='col-md-3'>
+												<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+													<a class="nav-link active" id="v-pills-varImp-tab" data-toggle="pill" href="#v-pills-varImp" role="tab" aria-controls="v-pills-home" aria-selected="true">Variable Importance</a>
+													<a class="nav-link" id="v-pills-varProfile-tab" data-toggle="pill" href="#v-pills-varProfile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Variable Profile</a>
+												</div>
+											</div>
+											<div class='col-md-9'>
+												<div class="tab-content" id="v-pills-tabContent">
+													<div class="tab-pane fade show active" id="v-pills-varImp" role="tabpanel" aria-labelledby="v-pills-varImp-tab">
+														<div class='row'>		
+															<div class='col-md-9'>
+																<img class="img-fluid" alt="Variable-Importance" id='plotdiv'>
+															</div>
+														</div>
+													</div>
+													<div class="tab-pane fade" id="v-pills-varProfile" role="tabpanel" aria-labelledby="v-pills-varProfile-tab">
+														<div class='row'>
+															<div class='col-md py-3'>
+																<div class="dropdown">
+																	<button class="btn btn-outline-primary dropdown-toggle float-right" type="button" id="varDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																		Variables
+																	</button>
+																	<div class="dropdown-menu" id='varProfileOptions' aria-labelledby="dropdownMenuButton">
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class='row'>
+															<div class="col-md">
+																<div class='float-right'>
+																	<a href="#" id='pdfLink' download>pdf</a>
+																	<a href="#" id='svgLink' download>svg</a>
+																	<a href="#" id='pngLink' download>png</a>
+																</div>
+															</div>
+														</div>
+														<div class='row'>
+															<div class='col-md-9'>
+																<img class="img-fluid" alt="Variable-Profile" id='plotdiv1'>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="modelling" role="tabpanel" aria-labelledby="modelling-tab">

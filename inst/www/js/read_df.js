@@ -13,7 +13,13 @@ $(document).ready(function(){
 		filename = $("#fileInputArea")[0].files[0];
 		dvname=$("#dvname").val();
 		preddv=$("#preddv").val();
-		ds=$("#data-split").val();
+
+		if($("#data-split").val() == ""){
+			$('#data-split').attr('placeholder');
+		}
+		else{
+			ds=$("#data-split").val();
+		}
 
 		if(!filename){
 			alert('Enter FileName');

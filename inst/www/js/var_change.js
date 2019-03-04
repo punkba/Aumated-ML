@@ -52,7 +52,8 @@ $('#varChangeBtn').on('click',function(){
 function initiatePreProcess(){
 	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last/png/?width=748&height=448'
+		/*width=748&height=448'*/
+		varImpPreImgLoc = loc+'graphics/last/png/'
 		$('#plotdiv').attr('src',varImpPreImgLoc);
 	}).fail(function()
 	{
@@ -97,7 +98,8 @@ function plotProfilingGraph(variableName){
 
 	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last/png/?width=748&height=448';
+		/*/?width=748&height=448*/
+		varImpPreImgLoc = loc+'graphics/last/png';
 		varImpPreImgDocLoc = loc+'graphics/last';
 
 		$('#plotdiv1').attr('src',varImpPreImgLoc);

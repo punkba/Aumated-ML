@@ -29,16 +29,14 @@ $('#varChangeBtn').on('click',function(){
 											$('#varChangeLnk').attr('href',session.getFileURL('LogFile.txt'));
 											$('#varChangeLnk').show();
 										}
-
 									});
 								}).fail(function(){
 									alert('Server error: '+preProcessReq.responseText);
 								}).always(function(){
 								});
 
-	/*$("#plotdiv").on("load",function(){
+	$("#plotdiv").on("load",function(){
 		if(plotdiv.complete && plotdiv.naturalHeight != 0)
-		{*/
 			$("#plotdiv1").on("load",function(){
 				if(plotdiv1.complete && plotdiv1.naturalHeight != 0)
 				{
@@ -46,28 +44,23 @@ $('#varChangeBtn').on('click',function(){
 					$("#modelling-tab").removeClass('disabled');
 				}
 			});
-		/*}
-	});*/
+		}
+	});
 });
 });
 
 function initiatePreProcess(){
 
-	var reqVarImp = $("#plotdiv").rplot('top_var_graph',{'target.var.name':dvname,'ds': ds}).
-					fail(function(){
-						alert("Server error: "+reqVarImp.responseText);
-					});
-
-	/*var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
+	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last'
+		varImpPreImgLoc = loc+'graphics/last/png/?width=748&height=448'
 		$('#plotdiv').attr('src',varImpPreImgLoc);
 	}).fail(function()
 	{
 		alert("Server error: " + reqVarImp.responseText);
 	}).always(function(){
 
-	});*/
+	});
 
 	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
 		session.getObject(function(output){
@@ -105,7 +98,7 @@ function plotProfilingGraph(variableName){
 
 	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last/png?width=748&height=448';
+		varImpPreImgLoc = loc+'graphics/last/png/?width=748&height=448';
 
 		$('#plotdiv1').attr('src',varImpPreImgLoc);
 		$('#pdfLink').attr('href',varImpPreImgLoc+'/pdf');

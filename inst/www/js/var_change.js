@@ -44,8 +44,7 @@ $('#varChangeBtn').on('click',function(){
 					$("#modelling-tab").removeClass('disabled');
 				}
 			});
-		}
-	});
+		});
 });
 });
 

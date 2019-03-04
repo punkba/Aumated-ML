@@ -105,7 +105,7 @@ function plotProfilingGraph(variableName){
 
 	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last';
+		varImpPreImgLoc = loc+'graphics/last/png?width=748&height=448';
 
 		$('#plotdiv1').attr('src',varImpPreImgLoc);
 		$('#pdfLink').attr('href',varImpPreImgLoc+'/pdf');

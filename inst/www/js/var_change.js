@@ -53,8 +53,6 @@ $('#varChangeBtn').on('click',function(){
 
 function initiatePreProcess(){
 
-	 $("#plotdiv").resizable();
-
 	var reqVarImp = $("#plotdiv").rplot('top_var_graph',{'target.var.name':dvname,'ds': ds}).
 					fail(function(){
 						alert("Server error: "+reqVarImp.responseText);

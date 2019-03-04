@@ -41,7 +41,7 @@ top_var_graph <- function(target.var.name, ds){
       intbin_var2 <- vector('character')
       intvar <- vector('numeric')
     }
-    
+
     numvars <- names(data[,sapply(data,is.numeric)])
     numbin_var<-setdiff(numvars,intvar)
 
@@ -224,7 +224,8 @@ top_var_graph <- function(target.var.name, ds){
       panel.grid.major = element_line(size = 0.5, linetype = 'solid',
                                       colour = "white"),
       panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
-                                      colour = "lightblue"))
+                                      colour = "lightblue"),
+      legend.position="none")
 
 
 }

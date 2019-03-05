@@ -56,7 +56,7 @@ $(document).ready(function(){
 
 		function populateResults(sessionData){
 			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'test');
-			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'train');
+			populateConfusionMatrix(sessionData[1][2]['metricOutput'],'train');
 		}
 
 		function getResultChartsAndDisplay(session){
@@ -72,10 +72,10 @@ $(document).ready(function(){
 			$('#'+place+'FP').html(((ConfuseData['fpr'].flat())*100).toPrecision(4));
 			$('#'+place+'TN').html(((ConfuseData['tnr'].flat())*100).toPrecision(4));
 			$('#'+place+'FN').html(((ConfuseData['fnr'].flat())*100).toPrecision(4));
-			$('#'+place+'f1-Act').html(ConfuseData['f1score'].flat());
-			$('#'+place+'pre-Act').html(ConfuseData['precision'].flat());
-			$('#'+place+'rec-Act').html(ConfuseData['recall'].flat());
-			$('#'+place+'acc-Act').html(ConfuseData['accuracy'].flat());
+			$('#'+place+'-f1-Act').html(ConfuseData['f1score'].flat());
+			$('#'+place+'-pre-Act').html(ConfuseData['precision'].flat());
+			$('#'+place+'-rec-Act').html(ConfuseData['recall'].flat());
+			$('#'+place+'-acc-Act').html(ConfuseData['accuracy'].flat());
 		}
   	});
 });

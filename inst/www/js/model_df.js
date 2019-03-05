@@ -40,11 +40,11 @@ $(document).ready(function(){
 									session.getObject(function(dataOutput){
 										$("#building_inter").text('Model Trained !! Check next page for results');
 										console.log(dataOutput);
-									/*	populateResults(dataOutput);
-										$("#modelDownloadLink").attr('href',session.getFileURL(dataOutput[1]['modelSaveLocation'].toString()));
+										populateResults(dataOutput);
+										$("#modelDownloadLink").attr('href',session.getFileURL(dataOutput[0][1]['modelSaveLocation'].toString()));
 										$("#modelDownloadLink").show();
 										$("#results-tab").removeClass('disabled');
-										$("#scoring-tab").removeClass('disabled');*/
+										$("#scoring-tab").removeClass('disabled');
 									}).fail(function(){
 
 									});
@@ -55,7 +55,8 @@ $(document).ready(function(){
 								});
 
 		function populateResults(sessionData){
-			populateConfusionMatrix(sessionData[2]['metricOutput'].flat());
+			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'test');
+			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'train');
 		}
 
 		function getResultChartsAndDisplay(session){
@@ -66,11 +67,15 @@ $(document).ready(function(){
 			$("#varImpChart").attr('src',varImpUrl);
 		}
 
-		function populateConfusionMatrix(ConfuseData){
-			$('#TP').html((ConfuseData[0]*100).toPrecision(4));
-			$('#FP').html((ConfuseData[1]*100).toPrecision(4));
-			$('#TN').html((ConfuseData[2]*100).toPrecision(4));
-			$('#FN').html((ConfuseData[3]*100).toPrecision(4));
+		function populateConfusionMatrix(ConfuseData,place){
+			$('#'+place+'TP').html(((ConfuseData['tpr'].flat())*100).toPrecision(4));
+			$('#'+place+'FP').html(((ConfuseData['fpr'].flat())*100).toPrecision(4));
+			$('#'+place+'TN').html(((ConfuseData['tnr'].flat())*100).toPrecision(4));
+			$('#'+place+'FN').html(((ConfuseData['fnr'].flat())*100).toPrecision(4));
+			$('#'+place+'f1-Act').html(ConfuseData['f1score'].flat());
+			$('#'+place+'pre-Act').html(ConfuseData['precision'].flat());
+			$('#'+place+'rec-Act').html(ConfuseData['recall'].flat());
+			$('#'+place+'acc-Act').html(ConfuseData['accuracy'].flat());
 		}
   	});
 });

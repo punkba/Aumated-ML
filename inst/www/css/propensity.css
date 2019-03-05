@@ -40,7 +40,8 @@ body{
     font:14px/1.5 'Raleway';
     font-size: 1em;
     color:#345;
-    background:#f0f2f4;
+    background: #648880;
+    background: linear-gradient(to right, #f6f1d3, #648880 85%, #293f50);
 }
 
 .content{
@@ -82,4 +83,12 @@ body{
 
 .nav-link .active{
     color: #fff !important;
+}
+
+.header{
+    background-image:url('https://www.recordedfuture.com/assets/machine-learning-cybersecurity-applications.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    height:700px;
 }

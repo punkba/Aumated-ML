@@ -8,6 +8,8 @@
         <link href='css/propensity.css' rel='stylesheet' type='text/css'>
     </head>
     <body>
+        <header class='header'>
+        </header>
         <div class='container'>
             <div class='row'>
                 <nav class='navbar navbar-expand-lg fixed-top'>
@@ -36,10 +38,10 @@
                                     <a class="nav-link disabled" id="profiling-tab" data-toggle="tab" href="#profiling" role="tab" aria-controls="profiling" aria-selected="false">Variable Profiling</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" id="modelling-tab" data-toggle="tab" href="#modelling" role="tab" aria-controls="modelling" aria-selected="false">Build Model</a>
+                                    <a class="nav-link" id="modelling-tab" data-toggle="tab" href="#modelling" role="tab" aria-controls="modelling" aria-selected="false">Build Model</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+                                    <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" id="scoring-tab" data-toggle="tab" href="#scoring" role="tab" aria-controls="scoring" aria-selected="false">Scoring</a>
@@ -84,6 +86,11 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <div class='col-md'>
+                                        <div class='text-center'>
+                                            <h6 id='progress1'></h6>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="manipulation" role="tabpanel" aria-labelledby="manipulation-tab">
                                     <div class='container'>
@@ -159,6 +166,11 @@
         												</h2>
         											</a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-md'>
+                                            <div class='text-center'>
+                                                <h6 id='progress2'></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -277,6 +289,7 @@
                                                 <a class="list-group-item list-group-item-action active" id="list-importantVariables-list" data-toggle="list" href="#list-importantVariables" role="tab" aria-controls="importantVariables">Variable Importance</a>
                                                 <a class="list-group-item list-group-item-action" id="list-gainChart-list" data-toggle="list" href="#list-gainChart" role="tab" aria-controls="gainChart">Gain Chart</a>
                                                 <a class="list-group-item list-group-item-action" id="list-confusionMatrix-list" data-toggle="list" href="#list-confusionMatrix" role="tab" aria-controls="confusionMatrix">Confusion Matrix</a>
+                                                <a class="list-group-item list-group-item-action" id="list-logFile-list" data-toggle="list" href="#list-logFile" role="tab" aria-controls="logFile">Log Files</a>
                                             </div>
                                         </div>
                                         <div class="col-8">
@@ -288,27 +301,154 @@
                                                     <img class="img-fluid" alt="Gain-Chart" id='gainChart'>
                                                 </div>
                                                 <div class="tab-pane fade" id="list-confusionMatrix" role="tabpanel" aria-labelledby="list-confusionMatrix-list">
-                                                    <table border="1" class='table table-bordered text-center'>
-                                                        <thead>
-                                                            <tr>
-                                                            <th></th>
-                                                            <th>Predicted: No</th>
-                                                            <th>Predicted: Yes</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                              <td>Actual: No</td>
-                                                              <td id='TN'></td>
-                                                              <td id='FP'></td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>Actual: Yes</td>
-                                                              <td id='FN'></td>
-                                                              <td id='TP'></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <p>
+                                                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#trainResultConf" aria-expanded="false" aria-controls="trainResultConf" id='trainRB'>
+                                                            Train Dataset Results
+                                                        </button>
+                                                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#testResultConf" aria-expanded="false" aria-controls="testResultConf" id='testRB'>
+                                                            Test Dataset Results
+                                                        </button>
+                                                    </p>
+                                                    <div class="collapse" id="trainResultConf">
+                                                        <div class="card card-body">
+                                                            <div class='container'>
+                                                                <div class='row'>
+                                                                    <table border="1" class='table table-bordered text-center'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                            <th></th>
+                                                                            <th>Predicted: No</th>
+                                                                            <th>Predicted: Yes</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                              <td>Actual: No</td>
+                                                                              <td id='trainTN'></td>
+                                                                              <td id='trainFP'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>Actual: Yes</td>
+                                                                              <td id='trainFN'></td>
+                                                                              <td id='trainTP'></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class='row'>
+                                                                    <table border="1" class='table table-bordered text-center'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Statistical Measures</th>
+                                                                                <th>Values</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>F1 Score</td>
+                                                                                <td id='train-f1-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Precision</td>
+                                                                                <td id='train-pre-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Recall</td>
+                                                                                <td id='train-rec-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>FPR</td>
+                                                                                <td id='train-fpr-Act'></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="collapse" id="testResultConf">
+                                                        <div class="card card-body">
+                                                            <div class='container'>
+                                                                <div class='row'>
+                                                                    <table border="1" class='table table-bordered text-center'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                            <th></th>
+                                                                            <th>Predicted: No</th>
+                                                                            <th>Predicted: Yes</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                              <td>Actual: No</td>
+                                                                              <td id='testTN'></td>
+                                                                              <td id='testFP'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                              <td>Actual: Yes</td>
+                                                                              <td id='testFN'></td>
+                                                                              <td id='testTP'></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class='row'>
+                                                                    <table border="1" class='table table-bordered text-center'>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Statistical Measures</th>
+                                                                                <th>Values</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>F1 Score</td>
+                                                                                <td id='test-f1-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Precision</td>
+                                                                                <td id='test-pre-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Recall</td>
+                                                                                <td id='test-rec-Act'></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>FPR</td>
+                                                                                <td id='test-fpr-Act'></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="list-logFile" role="tabpanel" aria-labelledby="list-logFile-list">
+                                                    <div class='container'>
+                                                        <div class='row'>
+                                                            <div class='col-md'>
+                                                                <div class='text-center'>
+                                                                    <a id="modelLogFileLinkActual" href="#" download>
+                                                                        <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>
+                                                                            Download Model Log File
+                                                                        </h2>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class='row'>
+                                                            <div class='col-md'>
+                                                                <div class='text-center'>
+                                                                    <a id="modelLogFileLinkBench" href="#" download>
+                                                                        <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>
+                                                                            Download Benchmark Model Log File
+                                                                        </h2>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

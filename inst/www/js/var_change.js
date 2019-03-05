@@ -5,6 +5,7 @@ $('#varChangeLnk').hide();
 $('#varChangeBtn').on('click',function(){
 	//Disable the button for the user
 	$('#varChangeBtn').prop("disabled",true);
+	$("#progress2").hide();
 
 	var input;
 
@@ -15,7 +16,9 @@ $('#varChangeBtn').on('click',function(){
 	else{
 		input = 0;
 	}
-	console.log("Input is: "+input);
+
+	$("#progress2").text("Processing..");
+	$("#progress2").show();
 
 	var preProcessReq = ocpu.call('preprocessing',
 								 {'conv_var_names':input,
@@ -42,6 +45,7 @@ $('#varChangeBtn').on('click',function(){
 				{
 					$("#profiling-tab").removeClass('disabled');
 					$("#modelling-tab").removeClass('disabled');
+					$("#progress2").text("Check next page for variable information");
 				}
 			});
 		});
@@ -49,6 +53,7 @@ $('#varChangeBtn').on('click',function(){
 });
 
 function initiatePreProcess(){
+	$("#progress2").text("Working on variable importance graph");
 	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
 		loc = session.getLoc();
 		varImpPreImgLoc = loc+'graphics/last/png?width=748&height=448'
@@ -59,7 +64,7 @@ function initiatePreProcess(){
 	}).always(function(){
 
 	});
-
+	$("#progress2").text("Identifying variables for profiling");
 	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
 		session.getObject(function(output){
 		tempOut1 = output;
@@ -93,7 +98,7 @@ function plotProfilingGraph(variableName){
 	$('#pdfLink').attr('src','#');
 	$('#pngLink').attr('src','#');
 	$('#svgLink').attr('src','#');
-
+	$("#progress2").text("Loading initial variable profile");
 	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
 		loc = session.getLoc();
 		/*/?width=748&height=448*/

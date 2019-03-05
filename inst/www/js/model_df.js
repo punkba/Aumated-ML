@@ -40,11 +40,11 @@ $(document).ready(function(){
 									session.getObject(function(dataOutput){
 										$("#building_inter").text('Model Trained !! Check next page for results');
 										console.log(dataOutput);
-										populateResults(dataOutput);
+									/*	populateResults(dataOutput);
 										$("#modelDownloadLink").attr('href',session.getFileURL(dataOutput[1]['modelSaveLocation'].toString()));
 										$("#modelDownloadLink").show();
 										$("#results-tab").removeClass('disabled');
-										$("#scoring-tab").removeClass('disabled');
+										$("#scoring-tab").removeClass('disabled');*/
 									}).fail(function(){
 
 									});

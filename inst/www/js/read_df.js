@@ -5,6 +5,7 @@ $(document).ready(function(){
 	var discrete = '';
 
 	var testOutput='';
+	$("#progress1").hide();
 
 
 	$("#submitbutton").on("click", function(){
@@ -42,21 +43,22 @@ $(document).ready(function(){
 		  	return;
 		}
 
-		/*$("#status1").text("Reading the CSV...")
-		$("#status1").addClass("lds-dual-ring");*/
-
 		uploadcsv(filename);
 	  });
 });
 
 function uploadcsv(filename){
     $("#submitbutton").attr("disabled", "disabled");
+
+	$("#progress1").text("Reading the File");
+	$("#progress1").show();
+
     var req = ocpu.call("read_csv", {
 		file : filename,
     },function(session){
 		/*$("#status1").text("Got the file !!");*/
 		initiatePrelimAnalysis(session);
-        alert('Read Successful');
+    	$("#progress1").text("Read Successful");
     });
 
     //if R returns an error, alert the error message

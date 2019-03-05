@@ -10,4 +10,8 @@ $(document).ready(function(){
     $(function () {
         $('[data-toggle="popover"]').popover()
     });
+
+    jQuery('#trainRB,#testRB').click( function(e) {
+        jQuery('.collapse').collapse('hide');
+    });
 })

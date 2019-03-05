@@ -64,6 +64,9 @@ modelling_module<-function(model_selection,predictorClass,dv)
                            as.numeric(metrics['fpr']),
                            as.numeric(metrics['tnr']),
                            as.numeric(metrics['fnr']),
+                           as.numeric(metrics['recall']),
+                           as.numeric(metrics['precision']),
+                           as.numeric(metrics['f1score']),
                            as.numeric(metrics['accuracy']))
 
       metricOutput <- list(metricOutput=I(metricOutput))
@@ -190,7 +193,7 @@ modelling_module<-function(model_selection,predictorClass,dv)
     return(list(train,test,positive_class))
   }
 
-  evaluatemeasures <- function(testData){
+  evaluatemeasures <- function(testData,flag){
 
     pred_f <- testData$Prob
     DV <- testData$DV
@@ -213,32 +216,36 @@ modelling_module<-function(model_selection,predictorClass,dv)
       DV <- as.numeric(dvPred)
     }
 
-    tpr<-EvaluationMeasures.TPR(Real = DV,Predicted = predicted_val, Positive = 1)
-    fpr<-EvaluationMeasures.FPR(Real = DV,Predicted = predicted_val, Positive = 1)
-    tnr<-EvaluationMeasures.TNR(Real = DV,Predicted = predicted_val, Positive = 1)
-    fnr<-EvaluationMeasures.FNR(Real = DV,Predicted = predicted_val, Positive = 1)
+    tpr<-(EvaluationMeasures.TPR(Real = DV,Predicted = predicted_val, Positive = 1))/2
+    fpr<-(EvaluationMeasures.FPR(Real = DV,Predicted = predicted_val, Positive = 1))/2
+    tnr<-(EvaluationMeasures.TNR(Real = DV,Predicted = predicted_val, Positive = 1))/2
+    fnr<-(EvaluationMeasures.FNR(Real = DV,Predicted = predicted_val, Positive = 1))/2
     recall<-EvaluationMeasures.Recall(Real = DV,Predicted = predicted_val, Positive = 1)
     precision<-EvaluationMeasures.Precision(Real = DV,Predicted = predicted_val, Positive = 1)
     f1score<-EvaluationMeasures.F1Score(Real = DV,Predicted = predicted_val, Positive = 1)
     Accuracy<-EvaluationMeasures.Accuracy(Real = DV,Predicted = predicted_val, Positive = 1)
     res = roc(as.numeric(DV), pred_f)
-    plot_res <- plot(res)
+    if(!flag){
+      plot_res <- plot(res)
+    }
 
     prediction_f <- prediction(pred_f, as.numeric(DV))
     #roc_curve <- performance(prediction_f, "tpr", "fpr")
     #plot_res1 <- plot(roc_curve)
 
     perf <- performance(prediction_f,"tpr","rpp")
-    plot_lc <- plot(perf, main="gain chart")
+    if(!flag){
+      plot_lc <- plot(perf, main="gain chart")
+    }
 
     testCopy <- testData
     testCopy$DV <- DV
     testCopy$predicted <- predicted_val
 
-    return(c(tpr,fpr,tnr,fnr,recall,precision,f1score,Accuracy,plot_res,plot_lc))
+    return(c(tpr,fpr,tnr,fnr,recall,precision,f1score,Accuracy))
   }
 
-  k_stat_value<- function(fullmodel,train,test,pos,model){
+  k_stat_value<- function(fullmodel,train,pos,model){
 
     train_KStat <- train
     if(! (model %in% c('SVM','NB')))
@@ -270,7 +277,7 @@ modelling_module<-function(model_selection,predictorClass,dv)
     return(thresh)
   }
 
-  variable_importance <- function(var_imp_mod,flag_svm){
+  variable_importance <- function(var_imp_mod,flag_svm,flag){
     library(party)
     library(caret)
 
@@ -301,15 +308,20 @@ modelling_module<-function(model_selection,predictorClass,dv)
       mod_imp <- arrange(var_imp_res, var_imp_res$Overall)
       mod_imp$var_names <- factor(mod_imp$var_names, levels = mod_imp$var_names)
       p <- ggplot(mod_imp, aes(var_names, Overall)) + geom_col() + coord_flip() + labs(x = "Variables", y = "Importance")
-      print(p)
+      if(!flag){
+        print(p)
+      }
       return(p)
     }
   }
 
-  GBM_func <- function(train,test,flagInp,positive_class){
+  GBM_func <- function(train,test,flagInp,positive_class,flag){
 
     train_gbm<-train
     test_gbm<-test
+    if(flag){
+      test_gbm = train_gbm
+    }
 
     print("running GBM")
 
@@ -328,12 +340,12 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     best.iter = gbm.perf(gbm_model, method="cv")
 
-    evalResults<- evaluatemeasures(test_gbm)
+    evalResults<- evaluatemeasures(test_gbm,flag)
 
     model_evaluations["gbm",] <- evalResults
 
 
-    important_variables<- variable_importance(gbm_model,"n")
+    important_variables<- variable_importance(gbm_model,"n",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
@@ -354,12 +366,15 @@ modelling_module<-function(model_selection,predictorClass,dv)
     }
   }
 
-  LR_func <- function(train,test,flagInp,positive_class){
+  LR_func <- function(train,test,flagInp,positive_class,flag){
 
     print("running LR")
 
     train_lr<-train
     test_lr<-test
+    if(flag){
+      test_lr = train_lr
+    }
 
     lr_model <- glm (DV ~ .,
                      data =train_lr,
@@ -369,11 +384,11 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     test_lr <- predResult
 
-    evalResults<- evaluatemeasures(test_lr)
+    evalResults<- evaluatemeasures(test_lr,flag)
 
     model_evaluations["lr",] <- evalResults
 
-    important_variables <- variable_importance(lr_model,"n")
+    important_variables <- variable_importance(lr_model,"n",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
@@ -395,11 +410,13 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
   }
 
-  RF_func <- function(train,test,flagInp,positive_class){
+  RF_func <- function(train,test,flagInp,positive_class,flag){
     print("running RF")
     train_rf <-train
     test_rf <- test
-
+    if(flag){
+      test_rf = train_rf
+    }
     library(randomForest)
     library(ROSE)
 
@@ -414,9 +431,9 @@ modelling_module<-function(model_selection,predictorClass,dv)
     test_rf <- predResult
 
     roc.curve(test_rf$DV, test_rf$Prob, plotit = F)
-    important_variables <- variable_importance(treeimp,"n")
+    important_variables <- variable_importance(treeimp,"n",flag)
 
-    evalResults<- evaluatemeasures(test_rf)
+    evalResults<- evaluatemeasures(test_rf,flag)
 
     model_evaluations["rf",] <- evalResults
 
@@ -439,12 +456,14 @@ modelling_module<-function(model_selection,predictorClass,dv)
     }
   }
 
-  NB_func<- function(train,test,flagInp,positive_class){
+  NB_func<- function(train,test,flagInp,positive_class,flag){
 
     print("running NB")
     train_nb<-train
     test_nb<-test
-
+    if(flag){
+      test_nb = train_nb
+    }
     library(e1071)
     Naive_Bayes_Model <- naiveBayes(as.factor(train_nb$DV) ~.,
                                     data=train_nb)
@@ -455,11 +474,11 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     test_nb <- predResult
 
-    evalResults<- evaluatemeasures(test_nb)
+    evalResults<- evaluatemeasures(test_nb,flag)
 
     model_evaluations["nb",] <- evalResults
 
-    important_variables  <- variable_importance(Naive_Bayes_Model,"not_app")
+    important_variables  <- variable_importance(Naive_Bayes_Model,"not_app",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
@@ -480,11 +499,13 @@ modelling_module<-function(model_selection,predictorClass,dv)
     }
   }
 
-  SVM_func <- function(test,train,flagInp,positive_class){
+  SVM_func <- function(test,train,flagInp,positive_class,flag){
     print("running SVM")
     train_svm<- train
     test_svm<- test
-
+    if(flag){
+      test_svm = train_svm
+    }
     library(caret)
 
     trctrl <- trainControl(method = "cv",
@@ -509,11 +530,11 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     test_svm <- predResult
 
-    evalResults<- evaluatemeasures(test_svm)
+    evalResults<- evaluatemeasures(test_svm,flag)
 
     model_evaluations["svm",] <- evalResults
 
-    important_variables  <- variable_importance(svm_radial,"y")
+    important_variables  <- variable_importance(svm_radial,"y",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
@@ -607,7 +628,7 @@ modelling_module<-function(model_selection,predictorClass,dv)
       negClass <- uniqLvls[uniqLvls != posit_class]
     }
 
-    threshold<-k_stat_value(modelInput,trainD,testD,posit_class,model)
+    threshold<-k_stat_value(modelInput,trainD,posit_class,model)
 
     threshold_df <- data.frame("ModelName" = model_selection, "PredictorClass" = predictorClass, "DVName" = dv, "Threshold" = threshold)
     write.csv(threshold_df,"C:/opencpuapp_ip/threshold.csv")
@@ -636,9 +657,9 @@ modelling_module<-function(model_selection,predictorClass,dv)
   train <- data_model[[1]]
   test <- data_model[[2]]
 
-  model_evaluations<-setNames(data.frame(matrix(ncol = 10, nrow = 9)),
+  model_evaluations<-setNames(data.frame(matrix(ncol = 8, nrow = 9)),
                               c("tpr","fpr","tnr","fnr","recall",
-                                "precision","f1score","accuracy","roc","gainchart")
+                                "precision","f1score","accuracy")
   )
   rownames(model_evaluations)<-c("lr","rf_rose","rf_over","rf_under",
                                  "rf_both","gbm","svm","nn","nb")
@@ -657,7 +678,22 @@ modelling_module<-function(model_selection,predictorClass,dv)
   rm(dataUpdated)
 
   fn <- get(paste(model,'func',sep='_'))
-  vars_imp <- fn(train,test,oemFlag,positive_class)
+  vars_imp <- fn(train,test,oemFlag,positive_class,F)
+
+  vars_imp[[3]][[1]]<-list(tpr = vars_imp[[3]][[1]][1], fpr = vars_imp[[3]][[1]][2],
+                           tnr = vars_imp[[3]][[1]][3], fnr = vars_imp[[3]][[1]][4],
+                           recall = vars_imp[[3]][[1]][5], precision = vars_imp[[3]][[1]][6],
+                           f1score = vars_imp[[3]][[1]][7], accuracy = vars_imp[[3]][[1]][8])
+
+  vars_imp_train <- fn(train,test,oemFlag,positive_class,T)
+
+  vars_imp_train[[3]][[1]]<-list(tpr = vars_imp_train[[3]][[1]][1], fpr = vars_imp_train[[3]][[1]][2],
+                           tnr = vars_imp_train[[3]][[1]][3], fnr = vars_imp_train[[3]][[1]][4],
+                           recall = vars_imp_train[[3]][[1]][5], precision = vars_imp_train[[3]][[1]][6],
+                           f1score = vars_imp_train[[3]][[1]][7], accuracy = vars_imp_train[[3]][[1]][8])
+
   benchmarking_modelling_module(model_selection,predictorClass,dv)
-  return (vars_imp)
+
+  vars_imp_list<-list(vars_imp,vars_imp_train)
+  return (vars_imp_list)
 }

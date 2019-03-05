@@ -349,9 +349,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
-    Summary_df <- data.frame(unclass(summary(model_evaluations)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(Summary_df, "ModelLogFile.csv", sep = ",", col.names = T, append = T)
-
     if(flagInp)
     {
       return (list(as.character(important_variables$var_names),
@@ -391,9 +388,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
     important_variables <- variable_importance(lr_model,"n",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
-
-    Summary_df <- data.frame(unclass(summary(model_evaluations)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(Summary_df, "ModelLogFile.csv", sep = ",", col.names = T, append = T)
 
     if(flagInp)
     {
@@ -439,9 +433,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 
-    Summary_df <- data.frame(unclass(summary(model_evaluations)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(Summary_df, "ModelLogFile.csv", sep = ",", col.names = T, append = T)
-
     if(flagInp)
     {
       return (list(as.character(important_variables$var_names),
@@ -481,9 +472,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
     important_variables  <- variable_importance(Naive_Bayes_Model,"not_app",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
-
-    Summary_df <- data.frame(unclass(summary(model_evaluations)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(Summary_df, "ModelLogFile.csv", sep = ",", col.names = T, append = T)
 
     if(flagInp)
     {
@@ -537,9 +525,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
     important_variables  <- variable_importance(svm_radial,"y",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
-
-    Summary_df <- data.frame(unclass(summary(model_evaluations)), check.names = FALSE, stringsAsFactors = FALSE)
-    write.table(Summary_df, "ModelLogFile.csv", sep = ",", col.names = T, append = T)
 
     if(flagInp)
     {
@@ -661,8 +646,6 @@ modelling_module<-function(model_selection,predictorClass,dv)
                               c("tpr","fpr","tnr","fnr","recall",
                                 "precision","f1score","accuracy")
   )
-  rownames(model_evaluations)<-c("lr","rf_rose","rf_over","rf_under",
-                                 "rf_both","gbm","svm","nn","nb")
 
   ##The class that needs to be predicted when the prob > threshold
   positive_class <- predictorClass
@@ -684,14 +667,14 @@ modelling_module<-function(model_selection,predictorClass,dv)
                            tnr = vars_imp[[3]][[1]][3], fnr = vars_imp[[3]][[1]][4],
                            recall = vars_imp[[3]][[1]][5], precision = vars_imp[[3]][[1]][6],
                            f1score = vars_imp[[3]][[1]][7], accuracy = vars_imp[[3]][[1]][8])
-
+  write.table(vars_imp[[3]][[1]], "ModelLogFile.csv", sep = ",", col.names = T, append = T, row.names = F)
   vars_imp_train <- fn(train,test,oemFlag,positive_class,T)
 
   vars_imp_train[[3]][[1]]<-list(tpr = vars_imp_train[[3]][[1]][1], fpr = vars_imp_train[[3]][[1]][2],
                            tnr = vars_imp_train[[3]][[1]][3], fnr = vars_imp_train[[3]][[1]][4],
                            recall = vars_imp_train[[3]][[1]][5], precision = vars_imp_train[[3]][[1]][6],
                            f1score = vars_imp_train[[3]][[1]][7], accuracy = vars_imp_train[[3]][[1]][8])
-
+  write.table(vars_imp_train[[3]][[1]], "ModelLogFile.csv", sep = ",", col.names = T, append = T, row.names = F)
   benchmarking_modelling_module(model_selection,predictorClass,dv)
 
   vars_imp_list<-list(vars_imp,vars_imp_train)

@@ -43,8 +43,8 @@ $(document).ready(function(){
 										populateResults(dataOutput);
 										$("#modelDownloadLink").attr('href',session.getFileURL(dataOutput[0][1]['modelSaveLocation'].toString()));
 										$("#modelDownloadLink").show();
-										$("#modelLogFileLinkActual").attr('href',session.getFileURL('ModelLogFile.csv');
-										$("#modelLogFileLinkBench").attr('href',session.getFileURL('ModelLogFile_Bench.csv');
+										$("#modelLogFileLinkActual").attr('href',session.getFileURL('ModelLogFile.csv'));
+										$("#modelLogFileLinkBench").attr('href',session.getFileURL('ModelLogFile_Bench.csv'));
 
 										$("#results-tab").removeClass('disabled');
 										$("#scoring-tab").removeClass('disabled');

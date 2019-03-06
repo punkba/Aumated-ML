@@ -1,535 +1,62 @@
 <!DOCTYPE html5>
     <head>
-        <title>Propensity Model</title>
-        <meta charset="utf-8">
+        <title>Automated ML Tool</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link href='css/propensity.css' rel='stylesheet' type='text/css'>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href='css/mainPage.css' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <header class='header'>
-        </header>
-        <div class='container'>
-            <div class='row'>
-                <nav class='navbar navbar-expand-lg fixed-top'>
-                    <a class='navbar-brand' href=#><i data-feather='home' height="18" width="18"></i>Home</a>
-                    <ul class="nav navbar-nav navbar-brand ml-auto">
-                        <li><a class='navbar-brand' href='#'>Automated ML Tool</a></li>
-                    </ul>
-                    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navBarSupportedContent'
-                    aria-controls='navBarSupportedContent' aria-expanded='false' aria-label='toggle-navigation'>
-                        <span class='navbar-toggler-icon'></span>
-                    </button>
-                </nav>
+        <nav class='navbar navbar-expand-lg fixed-top'>
+            <a class='navbar-brand' href='#'>Automated ML Tool</a>
+            <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navBarSupportedContent'
+            aria-controls='navBarSupportedContent' aria-expanded='false' aria-label='toggle-navigation'>
+                <span class='navbar-toggler-icon'></span>
+            </button>
+            <div class='navbar navbar-collapse' id='navBarSupportedContent'>
+                <ul class='navbar-nav mr-4'>
+                    <li class='nav-item'>
+                        <a class='nav-link' href='#propensityModel'>Classification Model</a>
+                    </li>
+                </ul>
             </div>
-            <div class='row'>
-                <div class='content w-100 p-3'  id='mainContent'>
-                    <div class="card">
-                        <div class="card-header">
-                            <ul class="nav nav-pills card-header-pills nav-fill"  id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="uploadcsv-tab" data-toggle="tab" href="#uploadcsv" role="tab" aria-controls="uploadcsv" aria-selected="true">Dataset Selection</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link disabled" id="manipulation-tab" data-toggle="tab" href="#manipulation" role="tab" aria-controls="manipulation" aria-selected="false">Variable Manipulation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="profiling-tab" data-toggle="tab" href="#profiling" role="tab" aria-controls="profiling" aria-selected="false">Feature Selection</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="modelling-tab" data-toggle="tab" href="#modelling" role="tab" aria-controls="modelling" aria-selected="false">Build Model</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" id="scoring-tab" data-toggle="tab" href="#scoring" role="tab" aria-controls="scoring" aria-selected="false">Scoring</a>
-                                </li>
+        </nav>
+        <header class='header'>
+            <div class='overlay'></div>
+            <div class='container'>
+                <div class='description'>
+                    <h1>    Automated Machine Learning Tool
+                        <p> Simple, Hassle-free tool for executives to develop & understand Machine Learning
+                            models for deep business insights
+                        </p>
+                    </h1>
+                </div>
+            </div>
+        </header>
+        <div class='propensity' id='propensityModel'>
+            <div class='container'>
+                <h1 class='text-center'>Classification Modelling</h1>
+                <div class='row'>
+                    <div class='col-lg-4 col-md-4 col-sm-12'>
+                        <img src='mlab-logo-outline.svg' class='img-fluid'>
+                    </div>
+                    <div class='col-lg-8 col-md-8 col-sm-12 desc'>
+                        <h3>Propensity Model</h3>
+                        <p>
+                            Used for predicting the outcome when it falls into 2 categories
+                            <ul>
+                                <li>To approve or reject the loan/ credit applications</li>
+                                <li>Classify if the loan will turn into NPA or not</li>
+                                <li>Identify the employees likely to leave the organisation in next 3 months</li>
                             </ul>
-                        </div>
-                        <div class="card-body">
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="uploadcsv" role="tabpanel" aria-labelledby="uploadcsv-tab">
-                                    <form>
-                                        <div class='form-group'>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-outline-secondary" type="button" id="fileInputText">Input Data File</button>
-                                                </div>
-                                                <div class="custom-file" id="custom-file">
-                                                    <input type="file" class="custom-file-input" id="fileInputArea" aria-describedby="fileInputText" required>
-                                                    <label class="custom-file-label" for="fileInputArea">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='form-row'>
-                                            <div class="form-group col-md-4">
-                                                <label for="dvname">Target Variable</label><sup data-toggle="popover" data-content="The dependent variable column which needs to be predicted">
-                                                    <i data-feather='help-circle' height="16" width="16" id='targetHelp' stroke="#007bff" style="margin-left:5px"></i></sup>
-                                                <input type="text" class="form-control" id="dvname" placeholder="" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="preddv">Target Class</label><sup data-toggle="popover" data-content="Observation's (example: 1 or 0/Yes or No) which needs to be predicted in target variable">
-                                                    <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='dvHelp' style="margin-left:5px"></i></sup>
-                                                <input type="text" class="form-control" id="preddv" placeholder="" required>
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <label for="data-split">Data Split (%)</label><sup data-toggle="popover" data-content="Percentage (0-100) in which the uploaded dataset must be spit into test and train sets">
-                                                    <i data-feather='help-circle' height="16" width="16" stroke="#007bff" id='splitHelp' style="margin-left:5px"></i></sup>
-                                                <input type="text" class="form-control" id="data-split" placeholder="80" required>
-                                            </div>
-                                            <div class='form-group col-md-12'>
-                                                <div class='text-center'>
-                                                    <button type="button" class="btn btn-outline-primary" id='submitbutton'>Upload CSV</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div class='col-md'>
-                                        <div class='text-center'>
-                                            <h6 id='progress1'></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="manipulation" role="tabpanel" aria-labelledby="manipulation-tab">
-                                    <div class='container'>
-                                        <div class='row'>
-                                            <div class='col-md'>
-                                                <div class="card cardList">
-                                                    <div class="card-header text-primary text-center">
-                                                    Categorical Variables
-                                                    </div>
-                                                    <div class="card-body ">
-                                                        <h6 class="card-title">Identified as Categorical</h6>
-                                                        <ul id='cate-list' class='varLi'>
-                                                            <!--<li> Variable 1</li>
-                                                            <li> Variable 2</li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class='col-md'>
-                                                <div class="card cardList">
-                                                    <div class="card-header text-primary text-center">
-                                                    Continuous Variables
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">Identified as Continuous</h6>
-                                                        <ul id='conte-list' class='varLi'>
-                                                            <!--<li> Variable 1</li>
-                                                            <li> Variable 2</li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class='col-md'>
-                                                <div class="card cardList">
-                                                    <div class="card-header text-primary text-center">
-                                                    Discrete Variables
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">Convert these to Categorical ??</h6>
-                                                        <div id = 'discreteBox' class = 'form ml-5'>
-                                                        </div>
-                                                        <!--<div class="form ml-5">
-                                                            <div class="form-group">
-                                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                                <label class="form-check-label" for="defaultCheck1">
-                                                                    Variable 1
-                                                                </label>
-                                                            </div>
-                                                            <div class='form-group'>
-                                                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                                                <label class="form-check-label" for="defaultCheck2">
-                                                                    Variable 2
-                                                                </label>
-                                                            </div>
-                                                        </div>-->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class='col-md py-3'>
-                                                <div class='text-center'>
-                                                    <button type="submit" class="btn btn-outline-primary" id='varChangeBtn'>Start Preprocessing</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='row'>
-                                            <div class='col-md'>
-                                                <div class='text-center'>
-                                                    <a id="varChangeLnk" href="#" download>
-        												<h5 class='text-center'><i data-feather="download" style="margin-right:5px"></i>
-        													Download the Preprocessing Log File
-        												</h2>
-        											</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class='col-md'>
-                                            <div class='text-center'>
-                                                <h6 id='progress2'></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="profiling" role="tabpanel" aria-labelledby="profiling-tab">
-                                    <div class='container'>
-                                        <div class='row'>
-											<div class='col-md-3'>
-												<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-													<a class="nav-link active" id="v-pills-varImp-tab" data-toggle="pill" href="#v-pills-varImp" role="tab" aria-controls="v-pills-home" aria-selected="true">Variable Importance</a>
-													<a class="nav-link" id="v-pills-varProfile-tab" data-toggle="pill" href="#v-pills-varProfile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Variable Profile</a>
-												</div>
-											</div>
-											<div class='col-md-9'>
-												<div class="tab-content" id="v-pills-tabContent">
-													<div class="tab-pane fade show active" id="v-pills-varImp" role="tabpanel" aria-labelledby="v-pills-varImp-tab">
-														<div class='row'>
-															<div class='col-md'>
-																<img class="img-fluid" alt="Variable-Profile" id='plotdiv'>
-															</div>
-														</div>
-													</div>
-													<div class="tab-pane fade" id="v-pills-varProfile" role="tabpanel" aria-labelledby="v-pills-varProfile-tab">
-														<div class='row'>
-															<div class='col-md py-3'>
-																<div class="dropdown">
-																	<button class="btn btn-outline-primary dropdown-toggle float-right" type="button" id="varDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																		Select a variable
-																	</button>
-																	<div class="dropdown-menu" id='varProfileOptions' aria-labelledby="dropdownMenuButton">
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class='row'>
-															<div class="col-md">
-																<div class='float-right'>
-																	<a href="#" id='pdfLink' download>pdf</a>
-																	<a href="#" id='svgLink' download>svg</a>
-																	<a href="#" id='pngLink' download>png</a>
-																</div>
-															</div>
-														</div>
-														<div class='row'>
-															<div class='col-md'>
-																<img class="img-fluid" alt="Variable-Profile" id='plotdiv1'>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="modelling" role="tabpanel" aria-labelledby="modelling-tab">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                &nbsp
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="card cardList">
-                                                    <div class="card-header text-primary text-center">
-                                                    Model Selection
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <form id='modelsList'>
-                                                            <div class="custom-control custom-radio">
-                                                              <input type="radio" id="LR" name="customRadio" class="custom-control-input" value='LR' checked>
-                                                              <label class="custom-control-label" for="LR">Logistic Regression</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio">
-                                                              <input type="radio" id="RF" name="customRadio" class="custom-control-input" value='RF' >
-                                                              <label class="custom-control-label" for="RF">Random Forest</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio">
-                                                              <input type="radio" id="SVM" name="customRadio" class="custom-control-input" value='SVM' >
-                                                              <label class="custom-control-label" for="SVM">Support Vector Machine</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio">
-                                                              <input type="radio" id="GBM" name="customRadio" class="custom-control-input" value='GBM'>
-                                                              <label class="custom-control-label" for="GBM">Gradient Boosting Method</label>
-                                                            </div>
-                                                            <div class="custom-control custom-radio">
-                                                              <input type="radio" id="NB" name="customRadio" class="custom-control-input" value='NB'>
-                                                              <label class="custom-control-label" for="NB">Naive Bayes</label>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                &nbsp
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class='col-md py-3'>
-                                                <div class='text-center'>
-                                                    <button type="button" class="btn btn-lg btn-outline-primary" id='modelSubmit'>Start Building</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class='col-md py-2'>
-                                                <div class='text-center'>
-                                                    <p id='building_inter'></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="results" role='tabpanel' aria-labelledby="results-tab">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="list-group" id="list-tab" role="tablist">
-                                                <a class="list-group-item list-group-item-action active" id="list-importantVariables-list" data-toggle="list" href="#list-importantVariables" role="tab" aria-controls="importantVariables">Variable Importance</a>
-                                                <a class="list-group-item list-group-item-action" id="list-gainChart-list" data-toggle="list" href="#list-gainChart" role="tab" aria-controls="gainChart">Gain Chart</a>
-                                                <a class="list-group-item list-group-item-action" id="list-confusionMatrix-list" data-toggle="list" href="#list-confusionMatrix" role="tab" aria-controls="confusionMatrix">Confusion Matrix</a>
-                                                <a class="list-group-item list-group-item-action" id="list-logFile-list" data-toggle="list" href="#list-logFile" role="tab" aria-controls="logFile">Log Files</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-8">
-                                            <div class="tab-content bg-light" id="nav-tabContent">
-                                                <div class="tab-pane fade show active" id="list-importantVariables" role="tabpanel" aria-labelledby="list-importantVariables-list">
-                                                    <img class="img-fluid" alt="Variable-Importance" id='varImpChart'>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-gainChart" role="tabpanel" aria-labelledby="list-importantVariables-list">
-                                                    <img class="img-fluid" alt="Gain-Chart" id='gainChart'>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-confusionMatrix" role="tabpanel" aria-labelledby="list-confusionMatrix-list">
-                                                    <p>
-                                                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#trainResultConf" aria-expanded="false" aria-controls="trainResultConf" id='trainRB'>
-                                                            Train Dataset Results
-                                                        </button>
-                                                        <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#testResultConf" aria-expanded="false" aria-controls="testResultConf" id='testRB'>
-                                                            Test Dataset Results
-                                                        </button>
-                                                    </p>
-                                                    <div class="collapse" id="trainResultConf">
-                                                        <div class="card card-body">
-                                                            <div class='container'>
-                                                                <div class='row'>
-                                                                    <table border="1" class='table table-bordered text-center'>
-                                                                        <thead>
-                                                                            <tr>
-                                                                            <th></th>
-                                                                            <th>Predicted: No</th>
-                                                                            <th>Predicted: Yes</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                              <td>Actual: No</td>
-                                                                              <td id='trainTN'></td>
-                                                                              <td id='trainFP'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                              <td>Actual: Yes</td>
-                                                                              <td id='trainFN'></td>
-                                                                              <td id='trainTP'></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class='row'>
-                                                                    <table border="1" class='table table-bordered text-center'>
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Statistical Measures</th>
-                                                                                <th>Values</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>F1 Score</td>
-                                                                                <td id='train-f1-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Precision</td>
-                                                                                <td id='train-pre-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Recall</td>
-                                                                                <td id='train-rec-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Accuracy</td>
-                                                                                <td id='train-acc-Act'></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="collapse" id="testResultConf">
-                                                        <div class="card card-body">
-                                                            <div class='container'>
-                                                                <div class='row'>
-                                                                    <table border="1" class='table table-bordered text-center'>
-                                                                        <thead>
-                                                                            <tr>
-                                                                            <th></th>
-                                                                            <th>Predicted: No</th>
-                                                                            <th>Predicted: Yes</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                              <td>Actual: No</td>
-                                                                              <td id='testTN'></td>
-                                                                              <td id='testFP'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                              <td>Actual: Yes</td>
-                                                                              <td id='testFN'></td>
-                                                                              <td id='testTP'></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <div class='row'>
-                                                                    <table border="1" class='table table-bordered text-center'>
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Statistical Measures</th>
-                                                                                <th>Values</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>F1 Score</td>
-                                                                                <td id='test-f1-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Precision</td>
-                                                                                <td id='test-pre-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Recall</td>
-                                                                                <td id='test-rec-Act'></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Accuracy</td>
-                                                                                <td id='test-acc-Act'></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="list-logFile" role="tabpanel" aria-labelledby="list-logFile-list">
-                                                    <div class='container'>
-                                                        <div class='row'>
-                                                            <div class='col-md'>
-                                                                <div class='text-center'>
-                                                                    <a id="modelLogFileLinkActual" href="#" download>
-                                                                        <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>
-                                                                            Download Model Log File
-                                                                        </h2>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class='row'>
-                                                            <div class='col-md'>
-                                                                <div class='text-center'>
-                                                                    <a id="modelLogFileLinkBench" href="#" download>
-                                                                        <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>
-                                                                            Download Benchmark Model Log File
-                                                                        </h2>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class='col-4'>
-                                            &nbsp
-                                        </div>
-                                        <div class='col-8'>
-                                            <div class='text-center'>
-                                                <a id="modelDownloadLink" href="#" download>
-                                                    <h5 class='text-center'><i data-feather="settings" style="margin-right:5px"></i>
-                                                        Download Trained Model
-                                                    </h2>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="scoring" role='tabpanel' aria-labelledby="scoring-tab">
-                                    <div class='container'>
-                                        <div class='col-md'>
-                                            <div class='row'>
-                                                <div class='col-md-3'>
-                                                    &nbsp
-                                                </div>
-                                                <form>
-                                                    <div class='form-group'>
-                                                        <div class="input-group mb-3">
-                                                            <div class="input-group-prepend">
-                                                                <button class="btn btn-outline-secondary" type="button" id="fileInputText1">Input Scoring File</button>
-                                                            </div>
-                                                            <div class="custom-file" id="custom-file">
-                                                                <input type="file" class="custom-file-input" id="fileInputAreaScore" aria-describedby="fileInputText1" required>
-                                                                <label class="custom-file-label" for="fileInputAreaScore">Choose file</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class='form-row'>
-                                                        <div class='form-group col-md-12'>
-                                                            <div class='text-center'>
-                                                                <button type="button" class="btn btn-outline-primary" id='submitbutton2'>Upload CSV</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                <div class='col-md-3'>
-                                                    &nbsp
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class='col-md'>
-                                                    <div class='text-center'>
-                                                        <a id="scoreDownloadLink" href="#" download>
-                                                            <h5 class='text-center'><i data-feather="download" style="margin-right:5px"></i>
-                                                                Download Scored Data
-                                                            </h2>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <button class="btn btn-outline-secondary btn-lg">Launch Propensity Model</button>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdn.opencpu.org/opencpu-0.4.js"></script>
-        <script src="https://unpkg.com/feather-icons"></script>
-        <script src='js/propensity.js' type='text/javascript'></script>
-        <script src='js/read_df.js' type='text/javascript'></script>
-        <script src='js/var_change.js' type='text/javascript'></script>
-        <script src='js/plot.js' type='text/javascript'></script>
-        <script src='js/model_df.js' type='text/javascript'></script>
-        <script src='js/scoring_df.js' type='text/javascript'></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
+        <script src='js/main.js' type='text/javascript'></script>
     </body>
 </html>

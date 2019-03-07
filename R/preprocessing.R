@@ -24,6 +24,7 @@ varListPrev <- read.csv('variable_list.csv')
 print('print from prev session')
 print(varListprev)
 setwd(actwd)
+print(getwd())
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"

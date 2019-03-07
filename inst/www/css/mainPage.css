@@ -106,13 +106,13 @@ html{
     color: #677077;
 }
 
-.propensity button{
+.propensity a{
 	border:1px  solid #10828C;
 	background: #173e43;
 	color:#fff;
 }
 
-.propensity button:hover{
+.propensity a:hover{
 	border:1px  solid #10828C;
 	background: #fff;
 	color:#173e43;

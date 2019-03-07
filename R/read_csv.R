@@ -48,7 +48,7 @@ read_csv<-function(filename)
 	df_full<-utils::read.csv(filename, header = TRUE, stringsAsFactors = FALSE )
   #df_full<-utils::read.csv("c:/opencpuapp_ip/base_data.csv", header = TRUE, stringsAsFactors = FALSE )
   #df_full<-utils::read.csv(paste("c:/opencpuapp_ip/",substr(filename,13,nchar(filename)),sep=""), header = TRUE, stringsAsFactors = FALSE );
-  print(getwd())
+ 
 
   list(
 	#message = paste("hello ", "c:/opencpuapp_ip/",substr(filename,17,nchar(filename)),".csv",sep="")

@@ -412,6 +412,8 @@ write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
 benchmarking(dv)
+print(getwd())
+print(list.files(getwd()))
 
 return (0)
 }

@@ -38,7 +38,7 @@ html{
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
-    height:700px;
+    height:650px !important;
 }
 
 .overlay{

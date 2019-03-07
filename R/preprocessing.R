@@ -4,7 +4,7 @@ library(plyr)
 library(dplyr)
 library(stringr)
 
-prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}",paste0('/',prevSessionId))
+prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}",paste0('/',prevSessionid))
 varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
 print('print from prev session')
 print(varListprev)

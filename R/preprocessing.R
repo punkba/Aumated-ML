@@ -17,6 +17,9 @@ path <- paste0("/", paste0(rev(path[2:(length(path)-1)]), collapse="/"))
 print('final new path')
 print(path)
 print(list.files(path))
+varListPrev <- read.csv(paste0(path,'/variable_list.csv'))
+print('print from prev session')
+print(varListprev)
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"

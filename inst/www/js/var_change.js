@@ -2,6 +2,7 @@ $(document).ready(function(){
 $('#varChangeLnk').hide();
 //Get the variable list after uploading the dataset
 
+
 $('#varChangeBtn').on('click',function(){
 	//Disable the button for the user
 	$('#varChangeBtn').prop("disabled",true);
@@ -22,7 +23,8 @@ $('#varChangeBtn').on('click',function(){
 
 	var preProcessReq = ocpu.call('preprocessing',
 								 {'conv_var_names':input,
-							 	  'dv' : dvname
+							 	  'dv' : dvname,
+								  'prevSessionid' : prevSessionId
 							  	 },
 								 function(session){
 								  	session.getObject(function(returnCode){

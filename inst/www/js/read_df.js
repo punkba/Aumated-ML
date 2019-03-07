@@ -3,7 +3,8 @@ $(document).ready(function(){
 	var categorical = '';
 	var continuous = '';
 	var discrete = '';
-
+	prevSessionId = "";
+	
 	var testOutput='';
 	$("#progress1").hide();
 
@@ -82,6 +83,7 @@ function initiatePrelimAnalysis(sessionData){
 						function(session){
 							/*$("#status1").text("Analysing the file !!");*/
 							globalSession = session;
+							prevSessionId = session.getKey();
 							session.getObject(function(full_output){
 								getAndDisplayVariables(full_output);
 							}).fail(

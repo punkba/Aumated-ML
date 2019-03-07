@@ -1,4 +1,4 @@
-preprocessing <- function(conv_var_names, dv,prevSessionId){
+preprocessing <- function(conv_var_names, dv,prevSessionid){
 
 library(plyr)
 library(dplyr)

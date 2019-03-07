@@ -71,7 +71,6 @@ function initiatePreProcess(){
 		/* Plot the variable profile by default for the first variable  in
 		the dropdown*/
 		plotProfilingGraph(output[0]);
-		$('#varDropdownMenuButton').html(output[0]);
 		populateDropList(output);
 		}).fail(function()
 		{

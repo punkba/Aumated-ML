@@ -115,7 +115,7 @@ bench_continuous = c(continuous, rep(NA, max.len1 - length(continuous)))
 bench_final_df <- data.frame(bench_categorical, bench_continuous)
 write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
 
-
+print(list.files(getwd()))
 return(final_list)
 #close loop and return lists
 }

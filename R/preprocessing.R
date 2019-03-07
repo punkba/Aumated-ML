@@ -5,11 +5,12 @@ library(dplyr)
 library(stringr)
 
 prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}/workspace",paste0('/',prevSessionid))
-print('files list with workspace')
-print(list.files(paste0(prevSessionStorage,'/workspace')))
-
-print('files list without workspace')
-print(list.files(prevSessionStorage))
+print('final prev session dir')
+print(prevSessionStorage)
+print('final prev session dir with workspace')
+paste0(prevSessionStorage,'/workspace')
+print('list files with file directory')
+print(list.files(paste0(prevSessionStorage,'/files/variable_list.csv')))
 
 #varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
 #print('print from prev session')

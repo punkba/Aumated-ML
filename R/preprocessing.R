@@ -2,29 +2,29 @@ preprocessing <- function(conv_var_names, dv,prevSessionid){
 
 library(plyr)
 library(dplyr)
-library(stringr)
+#library(stringr)
 
 #prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}/workspace",paste0('/',prevSessionid))
 #varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
 #print('print from prev session')
 #print(varListprev)
 
-split_path <- function(x) if (dirname(x)==x) x else c(basename(x),split_path(dirname(x)))
-path <- split_path(getwd())
-path[2] <- prevSessionid
-path[3] <- "ocpu-store"
-path <- paste0("/", paste0(rev(path[2:(length(path)-1)]), collapse="/"))
-print('final new path')
-print(path)
-print(list.files(path))
+#split_path <- function(x) if (dirname(x)==x) x else c(basename(x),split_path(dirname(x)))
+#path <- split_path(getwd())
+#path[2] <- prevSessionid
+#path[3] <- "ocpu-store"
+#path <- paste0("/", paste0(rev(path[2:(length(path)-1)]), collapse="/"))
+#print('final new path')
+#print(path)
+#print(list.files(path))
 
-actwd <- getwd()
-setwd(path)
-varListPrev <- read.csv('variable_list.csv')
-print('print from prev session')
-print(varListprev)
-setwd(actwd)
-print(getwd())
+#actwd <- getwd()
+#setwd(path)
+#varListPrev <- read.csv('variable_list.csv')
+#print('print from prev session')
+#print(varListprev)
+#setwd(actwd)
+#print(getwd())
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"

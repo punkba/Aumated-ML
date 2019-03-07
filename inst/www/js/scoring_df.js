@@ -17,6 +17,7 @@ $(document).ready(function(){
     function uploadcsv2(inputFileName){
 
         $("#submitbutton2").attr("disabled", "disabled");
+        $('#progress3').show();
         $('#progress3').text('Scoring in Progress!!');
         var req = ocpu.call("scoringmodule", {
             filename : inputFileName,

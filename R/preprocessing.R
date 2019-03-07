@@ -4,10 +4,16 @@ library(plyr)
 library(dplyr)
 library(stringr)
 
-prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}",paste0('/',prevSessionid))
-varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
-print('print from prev session')
-print(varListprev)
+prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}/workspace",paste0('/',prevSessionid))
+print('files list with workspace')
+print(list.files(paste0(prevSessionStorage,'/workspace')))
+
+print('files list without workspace')
+print(list.files(prevSessionStorage))
+
+#varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
+#print('print from prev session')
+#print(varListprev)
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"

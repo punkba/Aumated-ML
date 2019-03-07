@@ -20,8 +20,8 @@ variable_profiling_function  <- function(dv, vars) {
   df1$freq=freq[,"1"]
 
   ggplot()+geom_col(data=df1, aes(y=total,x=levels))+labs(title = "Bivariate Analysis") + xlab(vars) +geom_hline(aes(yintercept = mean(meaniv)*max(total)))+geom_line(
-    data=df1, aes(y=meaniv*max(total),x=levels, group=1))+
-    geom_point(data=df1, aes(y=meaniv*max(total),x=levels, group=1),size=0.75)+theme(
+    data=df1, aes(y=meaniv*max(total),x=levels, group=1),size=0.75)+
+    geom_point(data=df1, aes(y=meaniv*max(total),x=levels, group=1))+theme(
       panel.background = element_rect(fill = "aliceblue",
                                       colour = "lightblue",
                                       size = 0.5),

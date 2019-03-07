@@ -1,7 +1,13 @@
-preprocessing <- function(conv_var_names, dv){
+preprocessing <- function(conv_var_names, dv,prevSessionId){
 
 library(plyr)
 library(dplyr)
+library(stringr)
+
+prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}",paste0('/',prevSessionId))
+varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
+print('print from prev session')
+print(varListprev)
 
 data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"
@@ -412,8 +418,6 @@ write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
 benchmarking(dv)
-print(getwd())
-print(list.files(getwd()))
 
 return (0)
 }

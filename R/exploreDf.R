@@ -23,13 +23,13 @@ write.csv(df_temp,"C:/opencpuapp_ip/prepro_step1.csv")
 #get the list of categorical variables
 cat_var=data.frame()
 
-df_temp<-df_temp[, names(df_temp) != n] 
+df_temp<-df_temp[, names(df_temp) != n]
 
 #get the list of character variables
 char <- df_temp[sapply(df_temp,is.character)]
 cat_var<-char
 
-#get the list of logical variables 
+#get the list of logical variables
 logcl <- df_temp[sapply(df_temp, is.logical)]
 cat_var<-cbind(cat_var,logcl)
 
@@ -44,7 +44,7 @@ cat_var_names<-names(cat_var)
 cat_var_names
 categorical <- list(categorical=I(cat_var_names))
 
-#removing the categorical variables in df_temp 
+#removing the categorical variables in df_temp
 df_temp<-df_temp[, !sapply(df_temp,is.logical)]
 df_temp<-df_temp[, !sapply(df_temp,is.character)]
 df_temp<-df_temp[, !sapply(df_temp,is.factor)]
@@ -70,11 +70,11 @@ bench_categorical <- list(bench_categorical=I(bench_cat_var_names))
 df_cont <- data[, names(data) != n]
 for(i in names(cat_var))
 {
-  df_cont<-df_cont[names(df_cont) != i] 
+  df_cont<-df_cont[names(df_cont) != i]
 }
 for(i in names(unique_lvl_cnt))
 {
-  df_cont<-df_cont[names(df_cont) != i] 
+  df_cont<-df_cont[names(df_cont) != i]
 }
 cont_var_names<-list()
 cont_var_names<-names(df_cont)
@@ -106,6 +106,7 @@ categorical = c(categorical, rep(NA, max.len - length(categorical)))
 continuous = c(continuous, rep(NA, max.len - length(continuous)))
 final_df <- data.frame(discrete, categorical, continuous)
 write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
+write.csv(final_df,"variable_list.csv")
 
 bench_categorical = unlist(bench_categorical, use.names=FALSE)
 max.len1 = max(length(bench_categorical), length(continuous))
@@ -113,6 +114,7 @@ bench_categorical = c(bench_categorical, rep(NA, max.len1 - length(bench_categor
 bench_continuous = c(continuous, rep(NA, max.len1 - length(continuous)))
 bench_final_df <- data.frame(bench_categorical, bench_continuous)
 write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
+
 
 return(final_list)
 #close loop and return lists

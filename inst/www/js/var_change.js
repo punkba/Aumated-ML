@@ -68,7 +68,7 @@ function initiatePreProcess(){
 
 	});
 	$("#progress2").text("Identifying variables for profiling");
-	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname},function(session){
+	var reqVarList = ocpu.call('imp_var_list',{'target.var.name':dvname,'prevSessionid':prevSessionId},function(session){
 		session.getObject(function(output){
 		tempOut1 = output;
 		/* Plot the variable profile by default for the first variable  in
@@ -101,7 +101,7 @@ function plotProfilingGraph(variableName){
 	$('#pngLink').attr('src','#');
 	$('#svgLink').attr('src','#');
 	$("#progress2").text("Loading initial variable profile");
-	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName},function(session){
+	var reqProfileInitGraph = ocpu.call('variable_profiling_function',{'dv':dvname,'vars':variableName,'prevSessionid':prevSessionId},function(session){
 		loc = session.getLoc();
 		/*/?width=748&height=448*/
 		varImpPreImgLoc = loc+'graphics/last/png?width=700&height=400';

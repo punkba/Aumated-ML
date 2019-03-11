@@ -1,8 +1,11 @@
-variable_profiling_function  <- function(dv, vars) {
+variable_profiling_function  <- function(dv, vars,prevSessionid) {
 
   library(ggplot2)
 
-  dat = read.csv("c:/opencpuapp_ip/cleaned_data.csv")
+  location <- getServerPath(prevSessionid,getwd())
+  cleanPath <- paste0(location,'/cleaned_data.csv')
+
+  dat = read.csv(file=cleanPath)
 
   drops <- c("X")
   dat<-dat[ , !(names(dat) %in% drops)]

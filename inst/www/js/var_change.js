@@ -27,6 +27,7 @@ $('#varChangeBtn').on('click',function(){
 								  'prevSessionid' : prevSessionId
 							  	 },
 								 function(session){
+									prevSessionId = session.getKey();
 								  	session.getObject(function(returnCode){
 										if(returnCode == 0)
 										{
@@ -56,7 +57,7 @@ $('#varChangeBtn').on('click',function(){
 
 function initiatePreProcess(){
 	$("#progress2").text("Working on variable importance graph");
-	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds},function(session){
+	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds,'prevSessionid':prevSessionId},function(session){
 		loc = session.getLoc();
 		varImpPreImgLoc = loc+'graphics/last/png?width=748&height=448'
 		$('#plotdiv').attr('src',varImpPreImgLoc);

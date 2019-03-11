@@ -1,6 +1,10 @@
 
-top_var_graph <- function(target.var.name, ds){
-  data<- read.csv("C:/opencpuapp_ip/cleaned_data.csv")
+top_var_graph <- function(target.var.name, ds,prevSessionid){
+
+    location <- getServerPath(prevSessionid,getwd())
+    cleanPath <- paste0(location,'/cleaned_data.csv')
+
+  data<- read.csv(file=cleanPath)
 
   drops <- c("X")
   data<-data[ , !(names(data) %in% drops)]

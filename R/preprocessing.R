@@ -8,6 +8,7 @@ loc <- getServerPath(prevSessionid,getwd())
 variableListLoc <- paste0(loc,'/variable_list.csv')
 preProFileLoc <- paste0(loc,'/prepro_step1.csv')
 
+
 data = read.csv(file=preProFileLoc, header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"
 
@@ -417,7 +418,9 @@ write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 #write.table(final_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
-benchmarking(dv)
+write.csv(final_data_after_processing,"cleaned_data.csv")
+
+benchmarking(dv,prevSessionid)
 
 return (0)
 }

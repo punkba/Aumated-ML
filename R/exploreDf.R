@@ -18,7 +18,7 @@ if(length(unique(data[[n]]))!=2)
 
 df_temp<-data
 
-write.csv(df_temp,"C:/opencpuapp_ip/prepro_step1.csv")
+#write.csv(df_temp,"C:/opencpuapp_ip/prepro_step1.csv")
 write.csv(df_temp,"prepro_step1.csv")
 
 #get the list of categorical variables
@@ -106,7 +106,7 @@ discrete = c(discrete, rep(NA, max.len - length(discrete)))
 categorical = c(categorical, rep(NA, max.len - length(categorical)))
 continuous = c(continuous, rep(NA, max.len - length(continuous)))
 final_df <- data.frame(discrete, categorical, continuous)
-write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
+#write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
 write.csv(final_df,"variable_list.csv")
 
 bench_categorical = unlist(bench_categorical, use.names=FALSE)
@@ -114,9 +114,9 @@ max.len1 = max(length(bench_categorical), length(continuous))
 bench_categorical = c(bench_categorical, rep(NA, max.len1 - length(bench_categorical)))
 bench_continuous = c(continuous, rep(NA, max.len1 - length(continuous)))
 bench_final_df <- data.frame(bench_categorical, bench_continuous)
-write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
+#write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
+write.csv(bench_final_df,"benchmarking_variable_list.csv")
 
-print(list.files(getwd()))
 return(final_list)
 #close loop and return lists
 }

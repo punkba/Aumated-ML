@@ -2,25 +2,16 @@ preprocessing <- function(conv_var_names, dv,prevSessionid){
 
 library(plyr)
 library(dplyr)
-#library(stringr)
 
-#prevSessionStorage <- str_replace_all(getwd(),"/x[\\d,\\w]{1,}/workspace",paste0('/',prevSessionid))
-#varListPrev <- read.csv(paste0(prevSessionStorage,'/variable_list.csv'))
-#print('print from prev session')
-#print(varListprev)
+loc <- getServerPath(prevSessionid,getwd())
 
-split_path <- function(x) if (dirname(x)==x) x else c(basename(x),split_path(dirname(x)))
-path <- split_path(getwd())
-path[2] <- prevSessionid
-path[3] <- "ocpu-store"
-path <- paste0("/", paste0(rev(path[2:(length(path)-1)]), collapse="/"))
 print('final new path')
-print(path)
-print(list.files(path))
-path <- paste0(path,'/variable_list.csv')
-print(path)
-print(file.info(path))
-myVar <- read.csv(file=path)
+print(loc)
+print(list.files(loc))
+path <- paste0(loc,'/variable_list.csv')
+print(loc)
+print(file.info(loc))
+myVar <- read.csv(file=loc)
 str(myVar)
 
 

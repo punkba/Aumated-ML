@@ -5,22 +5,15 @@ library(dplyr)
 
 loc <- getServerPath(prevSessionid,getwd())
 
-print('final new path')
-print(loc)
-print(list.files(loc))
-loc <- paste0(loc,'/variable_list.csv')
-print(loc)
-print(file.info(loc))
-myVar <- read.csv(file=loc)
-str(myVar)
+variableListLoc <- paste0(loc,'/variable_list.csv')
+preProFileLoc <- paste0(loc,'/prepro_step1.csv')
 
-
-
-data = read.csv(file='C:/opencpuapp_ip/prepro_step1.csv', header=TRUE, sep=",")
+data = read.csv(file=preProFileLoc, header=TRUE, sep=",")
 names(data)[names(data)==dv] <- "DV"
-#df_temp_un <- data
-variables = read.csv(file='C:/opencpuapp_ip/variable_list.csv', header=TRUE, sep=",")
+
+variables = read.csv(file=variableListLoc, header=TRUE, sep=",")
 categorical = levels(variables$categorical)
+
 if(length(conv_var_names) != 0)
 {
   categorical = append(categorical, conv_var_names)

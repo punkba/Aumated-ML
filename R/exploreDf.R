@@ -19,6 +19,7 @@ if(length(unique(data[[n]]))!=2)
 df_temp<-data
 
 write.csv(df_temp,"C:/opencpuapp_ip/prepro_step1.csv")
+write.csv(df_temp,"prepro_step1.csv")
 
 #get the list of categorical variables
 cat_var=data.frame()

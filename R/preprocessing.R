@@ -21,6 +21,7 @@ path <- paste0(path,'/variable_list.csv')
 print(path)
 print(file.info(path))
 myVar <- read.csv(file=path)
+str(myVar)
 
 
 

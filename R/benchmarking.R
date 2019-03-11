@@ -2,7 +2,7 @@ benchmarking <- function(dv,sessionId){
 
     path <- getServerPath(sessionId,getwd())
     preProFileLocBM <- paste0(path,'/prepro_step1.csv')
-    variableListLocBM <- paste0(loc,'/benchmarking_variable_list.csv')
+    variableListLocBM <- paste0(path,'/benchmarking_variable_list.csv')
 
   data = read.csv(file=preProFileLocBM, header=TRUE, sep=",")
   names(data)[names(data)==dv] <- "DV"

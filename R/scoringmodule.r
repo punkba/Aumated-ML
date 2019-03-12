@@ -634,8 +634,9 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
   threshold<-data_pts$Threshold
 
   modelName <- paste(tolower(modelSel),'_model.RData',sep="")
-  modelPath <- "C:/opencpuapp_ip/"
-  the_model<-load(paste(modelPath,modelName,sep=""))
+  finalmodelPath <- paste0(loc,paste0('/',modelName))
+  #the_model<-load(paste(modelPath,modelName,sep=""))
+  the_model <- load(finalmodelPath)
 
   sum_model <- get(the_model)
   if(! (model %in% c('SVM','NB')))  {

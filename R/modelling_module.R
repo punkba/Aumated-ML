@@ -92,26 +92,30 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     splitratio <- as.numeric(0.7)
 
     loc <- getServerPath(prevSessionid,getwd())
+    print(loc)
     cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    print(cleanedDataLoc)
     cleaned_data <- read.csv(file=cleanedDataLoc)
     print('Printing cleaned_data prop')
-    print(file.info(cleaned_data))
+    print(file.info(file=cleanedDataLoc))
     cleaned_data1 <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
     print('Printing cleaned_data1 prop')
-    print(file.info(cleaned_data1))
+    print(file.info(file="C:/opencpuapp_ip/cleaned_data.csv"))
 
 
     variablesLoc <- paste0(loc,'/variable_list.csv')
+    print(variablesLoc)
+
 
     data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
     print('Printing data_type prop')
-    print(file.info(data_type))
+    print(file.info(variablesLoc))
     print('Printing data_type')
     print(data_type)
 
     data_type1<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
     print('Printing data_type prop')
-    print(file.info(data_type1))
+    print(file.info(file="C:/opencpuapp_ip/variable_list.csv"))
     print('Printing data_type1')
     print(data_type1)
 

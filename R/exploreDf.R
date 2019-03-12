@@ -114,7 +114,7 @@ max.len1 = max(length(bench_categorical), length(continuous))
 bench_categorical = c(bench_categorical, rep(NA, max.len1 - length(bench_categorical)))
 bench_continuous = c(continuous, rep(NA, max.len1 - length(continuous)))
 bench_final_df <- data.frame(bench_categorical, bench_continuous)
-#write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
+write.csv(bench_final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
 write.csv(bench_final_df,"benchmarking_variable_list.csv")
 
 return(final_list)

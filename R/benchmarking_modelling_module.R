@@ -85,13 +85,13 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
     return (outL)
   }
 
-  dataFunction <- function(){
+  dataFunction <- function(sessionid){
     ##Splitting into test and train
     set.seed(666)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    loc <- getServerPath(prevSessionid,getwd())
+    loc <- getServerPath(sessionid,getwd())
     cleanedDataLoc <- paste0(loc,'/benchmarking_cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
     #cleaned_data <- read.csv(file="C:/opencpuapp_ip/benchmarking_cleaned_data.csv")
@@ -628,7 +628,7 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
     return(testD)
   }
 
-  data_model <- dataFunction()
+  data_model <- dataFunction(sessionId)
   train <- data_model[[1]]
   test <- data_model[[2]]
 

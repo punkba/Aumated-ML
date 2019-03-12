@@ -85,13 +85,13 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     return (outL)
   }
 
-  dataFunction <- function(){
+  dataFunction <- function(sessionId){
     ##Splitting into test and train
     set.seed(666)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    loc <- getServerPath(prevSessionid,getwd())
+    loc <- getServerPath(sessionId,getwd())
     cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
     #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
@@ -648,7 +648,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     return(testD)
   }
 
-  data_model <- dataFunction()
+  data_model <- dataFunction(prevSessionid)
   print('After datafunction')
 
   train <- data_model[[1]]

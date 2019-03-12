@@ -5,7 +5,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   library(caTools)
   library(ROCR)
 
-  print('inside ')
+  print('inside modelling')
 
   clearWarnings <- function(){
     assign("last.warning", NULL, envir = baseenv())
@@ -94,12 +94,26 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     loc <- getServerPath(prevSessionid,getwd())
     cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
-    #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
+    print('Printing cleaned_data prop')
+    print(file.info(cleaned_data))
+    cleaned_data1 <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
+    print('Printing cleaned_data1 prop')
+    print(file.info(cleaned_data1))
+
 
     variablesLoc <- paste0(loc,'/variable_list.csv')
-    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
-    #data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+    print('Printing data_type prop')
+    print(file.info(data_type))
+    print('Printing data_type')
+    print(data_type)
+
+    data_type1<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+    print('Printing data_type prop')
+    print(file.info(data_type1))
+    print('Printing data_type1')
+    print(data_type1)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
@@ -649,6 +663,8 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   }
 
   data_model <- dataFunction()
+  print('After datafunction')
+
   train <- data_model[[1]]
   test <- data_model[[2]]
 
@@ -664,6 +680,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   oemFlag <- F
 
   dataUpdated <- setUpFunction(train,test,positive_class,model)
+  print('After setUpFunction')
   train <- dataUpdated[[1]]
   test <- dataUpdated[[2]]
   positive_class <- dataUpdated[[3]]
@@ -671,6 +688,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   rm(dataUpdated)
 
   fn <- get(paste(model,'func',sep='_'))
+  print('before func')
   vars_imp <- fn(train,test,oemFlag,positive_class,F)
 
   vars_imp[[3]][[1]]<-list(tpr = vars_imp[[3]][[1]][1], fpr = vars_imp[[3]][[1]][2],
@@ -685,6 +703,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
                            recall = vars_imp_train[[3]][[1]][5], precision = vars_imp_train[[3]][[1]][6],
                            f1score = vars_imp_train[[3]][[1]][7], accuracy = vars_imp_train[[3]][[1]][8])
   write.table(vars_imp_train[[3]][[1]], "ModelLogFile.csv", sep = ",", col.names = T, append = T, row.names = F)
+  print('before benchmarking_modelling_module')
   benchmarking_modelling_module(model_selection,predictorClass,dv,prevSessionid)
 
   vars_imp_list<-list(vars_imp,vars_imp_train)

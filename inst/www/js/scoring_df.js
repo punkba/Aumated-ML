@@ -21,7 +21,8 @@ $(document).ready(function(){
         $('#progress3').text('Scoring in Progress!!');
         var req = ocpu.call("scoringmodule", {
             filename : inputFileName,
-            modelSel:isChecked
+            modelSel:isChecked,
+            "prevSessionid" : prevSessionId
         }, function(session){
             $('#scoreDownloadLink').attr('href',session.getFileURL('scoredData.csv'));
             $('#progress3').text('Scoring Completed').delay(3000).hide();

@@ -1,5 +1,5 @@
 
-scoringmodule <- function(filename,modelSel) {
+scoringmodule <- function(filename,modelSel,prevSessionid) {
 
   library(VIF)
   library(EvaluationMeasures)
@@ -20,7 +20,11 @@ scoringmodule <- function(filename,modelSel) {
   library(woeBinning)
   library(tidyverse)
 
-  data<-read.csv("C:/opencpuapp_ip/data_after_binning.csv",stringsAsFactors = FALSE)
+  #data<-read.csv("C:/opencpuapp_ip/data_after_binning.csv",stringsAsFactors = FALSE)
+  loc <- getServerPath(prevSessionid,getwd())
+  cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+  data<-read.csv(file=cleanedDataLoc,stringsAsFactors = FALSE)
+
 
   if(!grepl(".csv$", filename)){
     stop("Uploaded filename must be a .csv filename!");
@@ -32,7 +36,9 @@ scoringmodule <- function(filename,modelSel) {
 
   test<-data.frame(df_full_bin)
 
-  data_pts<-read.csv("C:/opencpuapp_ip/threshold.csv",stringsAsFactors = FALSE)
+  thresholdLoc <- paste0(loc,'/threshold.csv')
+  data_pts<-read.csv(file=thresholdLoc,stringsAsFactors = FALSE)
+  #data_pts<-read.csv("C:/opencpuapp_ip/threshold.csv",stringsAsFactors = FALSE)
   target.var.name <- data_pts$DVName
   typeof(target.var.name)
 
@@ -562,12 +568,14 @@ scoringmodule <- function(filename,modelSel) {
 
   #write.csv(data,"C:/opencpuapp_ip/f_dv.csv")
   write.csv(test,"C:/opencpuapp_ip/test_binned.csv")
+  write.csv(test,'test_binned.csv')
 
   testD<-test
 
 
   ###To Convert into categorical an variables
-  data_type<-read.csv("C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+  variablesLoc <- paste0(loc,'/variable_list.csv')
+  data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
   cat_var<- as.vector(data_type$categorical)
   cat_var <- cat_var[!is.na(cat_var)]
@@ -628,7 +636,7 @@ scoringmodule <- function(filename,modelSel) {
   modelName <- paste(tolower(modelSel),'_model.RData',sep="")
   modelPath <- "C:/opencpuapp_ip/"
   the_model<-load(paste(modelPath,modelName,sep=""))
-  
+
   sum_model <- get(the_model)
   if(! (model %in% c('SVM','NB')))  {
     pred <- predict(sum_model, newdata=testD, type=typeResp,se.fit=FALSE)

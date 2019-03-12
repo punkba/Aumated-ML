@@ -36,7 +36,7 @@ $(document).ready(function(){
     							},
 								function(session)
 								{
-
+									prevSessionId = session.getKey();
 									getResultChartsAndDisplay(session);
 									session.getObject(function(dataOutput){
 										$("#building_inter").text('Model Trained !! Check next page for results');

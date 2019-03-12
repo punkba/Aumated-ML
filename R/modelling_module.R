@@ -95,9 +95,11 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
     #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
+    write.csv(cleaned_data,'cleaned_data.csv')
 
     variablesLoc <- paste0(loc,'/variable_list.csv')
     data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+    write.csv(data_type,'variable_list.csv')
 
     #data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
 

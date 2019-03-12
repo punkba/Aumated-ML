@@ -354,6 +354,7 @@ benchmarking <- function(dv,sessionId){
   continuous = c(rep(NA, length(cate_var_names)))
   final_df <- data.frame(categorical, continuous)
   write.csv(final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
+  write.csv(final_df,"benchmarking_variable_list.csv")
 
   ######################################################################################################################################################
   #getting the final data frame with the required variables

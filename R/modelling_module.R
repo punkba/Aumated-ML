@@ -91,15 +91,15 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    #loc <- getServerPath(prevSessionid,getwd())
-    #cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
-    #cleaned_data <- read.csv(file=cleanedDataLoc)
-    cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
+    loc <- getServerPath(prevSessionid,getwd())
+    cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    cleaned_data <- read.csv(file=cleanedDataLoc)
+    #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
 
-    #variablesLoc <- paste0(loc,'/variable_list.csv')
-    #data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+    variablesLoc <- paste0(loc,'/variable_list.csv')
+    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
-    data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+    #data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
@@ -685,7 +685,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
                            recall = vars_imp_train[[3]][[1]][5], precision = vars_imp_train[[3]][[1]][6],
                            f1score = vars_imp_train[[3]][[1]][7], accuracy = vars_imp_train[[3]][[1]][8])
   write.table(vars_imp_train[[3]][[1]], "ModelLogFile.csv", sep = ",", col.names = T, append = T, row.names = F)
-  benchmarking_modelling_module(model_selection,predictorClass,dv)
+  benchmarking_modelling_module(model_selection,predictorClass,dv,prevSessionid)
 
   vars_imp_list<-list(vars_imp,vars_imp_train)
   return (vars_imp_list)

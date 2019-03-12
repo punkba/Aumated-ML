@@ -397,6 +397,7 @@ categorical = c(cate_var_names, rep(NA, max.len - length(cate_var_names)))
 continuous = c(disc_var_names, rep(NA, max.len - length(disc_var_names)))
 final_df <- data.frame(categorical, continuous)
 write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
+write.csv(final_df,"variable_list.csv")
 
 ######################################################################################################################################################
 #getting the final data frame with the required variables
@@ -419,7 +420,6 @@ write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
 write.csv(final_data_after_processing,"cleaned_data.csv")
-write.csv(variables,'variable_list.csv')
 
 benchmarking(dv,prevSessionid)
 

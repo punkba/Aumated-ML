@@ -91,17 +91,16 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    #loc <- getServerPath(prevSessionid,getwd())
-    #cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
-    #cleaned_data <- read.csv(file=cleanedDataLoc)
-    cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
+    loc <- getServerPath(prevSessionid,getwd())
+    cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    cleaned_data <- read.csv(file=cleanedDataLoc)
+    #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
 
-    #variablesLoc <- paste0(loc,'/variable_list.csv')
-    #print(variablesLoc)
-    #data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+    variablesLoc <- paste0(loc,'/variable_list.csv')
+    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
-    data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
-    
+    #data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
 

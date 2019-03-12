@@ -1,4 +1,4 @@
-modelling_module<-function(model_selection,predictorClass,dv)
+modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
 {
   library(pROC)
   library(caret)
@@ -88,9 +88,13 @@ modelling_module<-function(model_selection,predictorClass,dv)
     set.seed(666)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
-    cleaned_data <- read.csv("C:/opencpuapp_ip/cleaned_data.csv")
 
-    data_type<-read.csv("C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+    loc <- getServerPath(prevSessionid,getwd())
+    cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    cleaned_data <- read.csv(file=cleanedDataLoc)
+
+    variablesLoc <- paste0(loc,'/variable_list.csv')
+    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]

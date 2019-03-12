@@ -419,6 +419,7 @@ write.table(final_df, "LogFile.txt", sep = ",", col.names = T, append = T)
 
 write.csv(final_data_after_processing,"C:/opencpuapp_ip/cleaned_data.csv")
 write.csv(final_data_after_processing,"cleaned_data.csv")
+write.csv(variables,'variable_list.csv')
 
 benchmarking(dv,prevSessionid)
 

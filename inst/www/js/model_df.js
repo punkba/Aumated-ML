@@ -31,11 +31,12 @@ $(document).ready(function(){
 								{
 									"model_selection" : isChecked,
 									"predictorClass" : preddv,
-									"dv" : dvname
+									"dv" : dvname,
+									"prevSessionid" : prevSessionId
     							},
 								function(session)
 								{
-									sessionS = session;
+
 									getResultChartsAndDisplay(session);
 									session.getObject(function(dataOutput){
 										$("#building_inter").text('Model Trained !! Check next page for results');

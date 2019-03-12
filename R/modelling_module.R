@@ -5,6 +5,8 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   library(caTools)
   library(ROCR)
 
+  print('inside ')
+
   clearWarnings <- function(){
     assign("last.warning", NULL, envir = baseenv())
   }
@@ -89,12 +91,15 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    loc <- getServerPath(prevSessionid,getwd())
-    cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
-    cleaned_data <- read.csv(file=cleanedDataLoc)
+    #loc <- getServerPath(prevSessionid,getwd())
+    #cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    #cleaned_data <- read.csv(file=cleanedDataLoc)
+    cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
 
-    variablesLoc <- paste0(loc,'/variable_list.csv')
-    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+    #variablesLoc <- paste0(loc,'/variable_list.csv')
+    #data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
+
+    data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
@@ -621,6 +626,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
 
     threshold_df <- data.frame("ModelName" = model_selection, "PredictorClass" = predictorClass, "DVName" = dv, "Threshold" = threshold)
     write.csv(threshold_df,"C:/opencpuapp_ip/threshold.csv")
+    write.csv(threshold_df,"threshold.csv")
 
     if(! (model %in% c('SVM','NB')))
     {

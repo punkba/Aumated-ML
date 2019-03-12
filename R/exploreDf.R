@@ -106,7 +106,7 @@ discrete = c(discrete, rep(NA, max.len - length(discrete)))
 categorical = c(categorical, rep(NA, max.len - length(categorical)))
 continuous = c(continuous, rep(NA, max.len - length(continuous)))
 final_df <- data.frame(discrete, categorical, continuous)
-#write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
+write.csv(final_df,"C:/opencpuapp_ip/variable_list.csv")
 write.csv(final_df,"variable_list.csv")
 
 bench_categorical = unlist(bench_categorical, use.names=FALSE)

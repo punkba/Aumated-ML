@@ -91,12 +91,15 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    loc <- getServerPath(prevSessionid,getwd())
-    cleanedDataLoc <- paste0(loc,'/benchmarking_cleaned_data.csv')
-    cleaned_data <- read.csv(file=cleanedDataLoc)
+    #loc <- getServerPath(prevSessionid,getwd())
+    #cleanedDataLoc <- paste0(loc,'/benchmarking_cleaned_data.csv')
+    #cleaned_data <- read.csv(file=cleanedDataLoc)
+    cleaned_data <- read.csv(file="C:/opencpuapp_ip/benchmarking_cleaned_data.csv")
 
-    variablesLocBM <- paste0(loc,'/benchmarking_variable_list.csv')
-    data_type<-read.csv(file=variablesLocBM,stringsAsFactors = FALSE)
+
+    #variablesLocBM <- paste0(loc,'/benchmarking_variable_list.csv')
+    #data_type<-read.csv(file=variablesLocBM,stringsAsFactors = FALSE)
+    data_type<-read.csv(file="C:/opencpuapp_ip/benchmarking_variable_list.csv",stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]

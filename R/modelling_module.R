@@ -91,34 +91,17 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     #User to choose the ratio to be set for training and testing data sets
     splitratio <- as.numeric(0.7)
 
-    loc <- getServerPath(prevSessionid,getwd())
-    print(loc)
-    cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
-    print(cleanedDataLoc)
-    cleaned_data <- read.csv(file=cleanedDataLoc)
-    print('Printing cleaned_data prop')
-    print(file.info(file=cleanedDataLoc))
-    cleaned_data1 <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
-    print('Printing cleaned_data1 prop')
-    print(file.info(file="C:/opencpuapp_ip/cleaned_data.csv"))
+    #loc <- getServerPath(prevSessionid,getwd())
+    #cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
+    #cleaned_data <- read.csv(file=cleanedDataLoc)
+    cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
 
+    #variablesLoc <- paste0(loc,'/variable_list.csv')
+    #print(variablesLoc)
+    #data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
 
-    variablesLoc <- paste0(loc,'/variable_list.csv')
-    print(variablesLoc)
-
-
-    data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
-    print('Printing data_type prop')
-    print(file.info(variablesLoc))
-    print('Printing data_type')
-    print(data_type)
-
-    data_type1<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
-    print('Printing data_type prop')
-    print(file.info(file="C:/opencpuapp_ip/variable_list.csv"))
-    print('Printing data_type1')
-    print(data_type1)
-
+    data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
+    
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
 

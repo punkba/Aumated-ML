@@ -77,10 +77,17 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
       capture.output(sumMod,file=modelSummaryLocation)
       summaryPath <- list(summaryPath=I(modelSummaryLocation))
 
+      if(modelName == "nb")
+     {
+       var_imp_flag <- "N"
+     } else {
+       var_imp_flag <- "Y"
+     }
+
     }
     outL <- list(modelName,
                  modelSaveLocation,
-                 metricOutput,summaryPath)
+                 metricOutput,summaryPath,var_imp_flag)
 
     return (outL)
   }

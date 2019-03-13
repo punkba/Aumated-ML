@@ -62,6 +62,9 @@ $(document).ready(function(){
 			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'test');
 			populateConfusionMatrix(sessionData[1][2]['metricOutput'],'train');
 			$('#testResultConf').addClass('show');
+			if(sessionData[0][4][0] == 'N'){
+				$("#list-importantVariables-list").remove();
+			}
 		}
 
 		function getResultChartsAndDisplay(session){

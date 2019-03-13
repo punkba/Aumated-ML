@@ -61,6 +61,7 @@ $(document).ready(function(){
 		function populateResults(sessionData){
 			populateConfusionMatrix(sessionData[0][2]['metricOutput'],'test');
 			populateConfusionMatrix(sessionData[1][2]['metricOutput'],'train');
+			$('#testResultConf').addClass('show');
 		}
 
 		function getResultChartsAndDisplay(session){

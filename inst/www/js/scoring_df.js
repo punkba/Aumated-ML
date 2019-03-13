@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-    console.log('In scoring');
     $('#scoreDownloadLink').hide();
     $('#progress3').hide();
 

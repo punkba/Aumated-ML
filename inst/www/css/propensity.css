@@ -92,3 +92,7 @@ body{
     background-position: center;
     height:700px;
 }
+
+card-body{
+    font-style: .80em;
+}

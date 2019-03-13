@@ -4,7 +4,7 @@ $(document).ready(function(){
 	var continuous = '';
 	var discrete = '';
 	prevSessionId = "";
-	
+
 	var testOutput='';
 	$("#progress1").hide();
 
@@ -82,7 +82,6 @@ function initiatePrelimAnalysis(sessionData){
 						},
 						function(session){
 							/*$("#status1").text("Analysing the file !!");*/
-							globalSession = session;
 							prevSessionId = session.getKey();
 							session.getObject(function(full_output){
 								getAndDisplayVariables(full_output);
@@ -131,7 +130,6 @@ function createListElem(value,locToCreate){
 	var node = document.createElement("LI");
 	var textnode = document.createTextNode(value);
 	node.appendChild(textnode);
-	console.log(locToCreate);
 	$(locToCreate).append(node);
 }
 

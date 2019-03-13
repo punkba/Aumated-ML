@@ -65,9 +65,9 @@ $(document).ready(function(){
 
 		function getResultChartsAndDisplay(session){
 			var base_url = session.getLoc();
-			var gainUrl = base_url +'graphics/2';
+			var gainUrl = base_url +'graphics/2/png?width=748&height=448';
 			$("#gainChart").attr('src',gainUrl);
-			var varImpUrl = base_url +'graphics/3';
+			var varImpUrl = base_url +'graphics/3/png?width=748&height=448';
 			$("#varImpChart").attr('src',varImpUrl);
 		}
 

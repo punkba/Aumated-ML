@@ -59,7 +59,7 @@ function initiatePreProcess(){
 	$("#progress2").text("Working on variable importance graph");
 	var reqVarImp = ocpu.call('top_var_graph',{'target.var.name':dvname,'ds': ds,'prevSessionid':prevSessionId},function(session){
 		loc = session.getLoc();
-		varImpPreImgLoc = loc+'graphics/last/png?width=748&height=448'
+		varImpPreImgLoc = loc+'graphics/last/png?width=700&height=400'
 		$('#plotdiv').attr('src',varImpPreImgLoc);
 	}).fail(function()
 	{

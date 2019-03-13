@@ -30,8 +30,6 @@ benchmarking <- function(dv,sessionId){
 
   #add string for cat var treatment
   write("Categorical variables treatment completed",file="LogFile_Bench.txt",append=TRUE)
-  #cat_var_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
-  #write.table(cat_var_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
 
   #Identify replace the missing values as Unknown in categorical variables
   df_cat = data[sapply(data, is.factor) & colnames(data) != "DV"]
@@ -60,8 +58,6 @@ benchmarking <- function(dv,sessionId){
 
     #add string for missing value treatment
     write("Missing value treatment completed",file="LogFile_Bench.txt",append=TRUE)
-	#missing_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-	#write.table(missing_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
 	write("Checking for categorical variables > 52 levels",file="LogFile_Bench.txt",append=TRUE)
 
     #Check for categorical variables with more than 52 levels and reduce them to the top 10 levels that
@@ -106,10 +102,6 @@ benchmarking <- function(dv,sessionId){
       df_cat[,i]<-temp
     }
 
-    #add string to show reduced categorical values > 52
-    #reduce_cat_df <- data.frame(unclass(summary(df_cat)), check.names = FALSE, stringsAsFactors = FALSE)
-    #write.table(reduce_cat_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
-
     #**********dv leakage code begin*************
     df_factor_check<-data.frame()
     dvleak_data<-df_cat
@@ -152,9 +144,6 @@ benchmarking <- function(dv,sessionId){
     {
       df_factor_check$dv_leak[i]<-(df_factor_check$Sum_of_DV[i])-(df_factor_check$`Num_Records_DV=1`[i])
     }
-
-    # subset for dv_leak =0 and delete the variables in the original data set.
-    #df_factor_check$`Num_Employees_DV=1`<-as.numeric(as.character(df_factor_check$`Num_Employees_DV=1`))
 
     rem_names=as.character(df_factor_check[df_factor_check$dv_leak==0,]$Variable) #Response same for 90% of the employees
     if(length(rem_names)!=0)
@@ -277,8 +266,6 @@ benchmarking <- function(dv,sessionId){
 
       #add string to show Chi sq test
 	  write("Chi Square test for Highly correlated variables",file="LogFile_Bench.txt",append=TRUE)
-      #chisq_df <- data.frame(unclass(summary(corr_var_chsq)), check.names = FALSE, stringsAsFactors = FALSE)
-      #write.table(chisq_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
 
       #remove the highly correlated variables that are not significant
       corr_var_insig<-as.character(corr_var_chsq[which(corr_var_chsq$p_value>0.05),1])
@@ -334,8 +321,6 @@ benchmarking <- function(dv,sessionId){
 
     #add string to show VIF
     write("Calculating VIF",file="LogFile_Bench.txt",append=TRUE)
-	#vif_df <- data.frame(unclass(summary(vfit_d)), check.names = FALSE, stringsAsFactors = FALSE)
-	#write.table(vif_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
 
     rem_var<-as.character(rownames(vfit_d))
 
@@ -353,7 +338,6 @@ benchmarking <- function(dv,sessionId){
   categorical = c(cate_var_names)
   continuous = c(rep(NA, length(cate_var_names)))
   final_df <- data.frame(categorical, continuous)
-  write.csv(final_df,"C:/opencpuapp_ip/benchmarking_variable_list.csv")
   write.csv(final_df,"benchmarking_variable_list.csv")
 
   ######################################################################################################################################################
@@ -372,10 +356,6 @@ benchmarking <- function(dv,sessionId){
   write("Showing Final Data Summary",file="LogFile_Bench.txt",append=TRUE)
   final_df <- data.frame(unclass(summary(final_data_after_processing)), check.names = FALSE, stringsAsFactors = FALSE)
   write.table(final_df, "LogFile_Bench.txt", sep = ",", col.names = T, append = T)
-  #final_df <- data.frame(unclass(summary(final_data_after_processing)), check.names = FALSE, stringsAsFactors = FALSE)
-  #write.table(final_df, "LogFile_Bench.csv", sep = ",", col.names = T, append = T)
-
-  write.csv(final_data_after_processing,"C:/opencpuapp_ip/benchmarking_cleaned_data.csv")
   write.csv(final_data_after_processing,"benchmarking_cleaned_data.csv")
 
   return (0)

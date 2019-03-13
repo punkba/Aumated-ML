@@ -199,9 +199,7 @@ imp_var_list<- function(target.var.name,prevSessionid){
   FS <- list(imp.features)
   a=FS[[1]]
   c=a[,c("VARS","Rank")]
-  #graphics::par(mai=c(1,3,1,1))
   b=subset(a[,c("VARS","VariableImportance")],a$Rank<=10)
-  #graphics::barplot(b$VariableImportance,main="Top 10 Variables", horiz=TRUE,xlab="VariableImportance",names.arg=b$VARS,las=1,col=grDevices::rainbow(10))
 
   return (as.character(c$VARS))
 

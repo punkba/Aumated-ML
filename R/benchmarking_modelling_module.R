@@ -47,7 +47,7 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
       }
 
       graph <- graph[selectedModel]
-      save(graph,file="C:/OpencpuApp_IP/graph.RData")
+      save(graph,file="graph.RData")
     }
     else
     {
@@ -94,12 +94,9 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
     loc <- getServerPath(sessionid,getwd())
     cleanedDataLoc <- paste0(loc,'/benchmarking_cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
-    #cleaned_data <- read.csv(file="C:/opencpuapp_ip/benchmarking_cleaned_data.csv")
-
 
     variablesLocBM <- paste0(loc,'/benchmarking_variable_list.csv')
     data_type<-read.csv(file=variablesLocBM,stringsAsFactors = FALSE)
-    #data_type<-read.csv(file="C:/opencpuapp_ip/benchmarking_variable_list.csv",stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
@@ -606,7 +603,7 @@ benchmarking_modelling_module<-function(model_selection,predictorClass,dv,sessio
     threshold<-k_stat_value(modelInput,trainD,testD,posit_class,model)
 
     threshold_df <- data.frame("ModelName" = model_selection, "PredictorClass" = predictorClass, "DVName" = dv, "Threshold" = threshold)
-    write.csv(threshold_df,"C:/opencpuapp_ip/threshold.csv")
+    write.csv(threshold_df,"benchmark_threshold.csv")
 
     if(! (model %in% c('SVM','NB')))
     {

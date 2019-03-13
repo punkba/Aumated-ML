@@ -49,7 +49,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
       }
 
       graph <- graph[selectedModel]
-      save(graph,file="C:/OpencpuApp_IP/graph.RData")
+      save(graph,file="graph.RData")
     }
     else
     {
@@ -101,14 +101,11 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     loc <- getServerPath(sessionId,getwd())
     cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
     cleaned_data <- read.csv(file=cleanedDataLoc)
-    #cleaned_data <- read.csv(file="C:/opencpuapp_ip/cleaned_data.csv")
     write.csv(cleaned_data,'cleaned_data.csv')
 
     variablesLoc <- paste0(loc,'/variable_list.csv')
     data_type<-read.csv(file=variablesLoc,stringsAsFactors = FALSE)
     write.csv(data_type,'variable_list.csv')
-
-    #data_type<-read.csv(file="C:/opencpuapp_ip/variable_list.csv",stringsAsFactors = FALSE)
 
     cat_var<- as.vector(data_type$categorical)
     cat_var <- cat_var[!is.na(cat_var)]
@@ -248,8 +245,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     }
 
     prediction_f <- prediction(pred_f, as.numeric(DV))
-    #roc_curve <- performance(prediction_f, "tpr", "fpr")
-    #plot_res1 <- plot(roc_curve)
 
     perf <- performance(prediction_f,"tpr","rpp")
     if(!flag){
@@ -524,8 +519,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     library(kernlab)
     ### finding optimal value of a tuning parameter
     sigDist <- sigest(DV ~ ., data = train_svm, frac = 1)
-    ### creating a grid of two tuning parameters, .sigma comes from the earlier line. we are trying to find best value of .C
-    #svmTuneGrid <- data.frame(.sigma = sigDist[1], .C = 2^(-2:7))
 
     svm_radial <- train(DV ~.,
                         data = train_svm,
@@ -634,7 +627,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     threshold<-k_stat_value(modelInput,trainD,posit_class,model)
 
     threshold_df <- data.frame("ModelName" = model_selection, "PredictorClass" = predictorClass, "DVName" = dv, "Threshold" = threshold)
-    write.csv(threshold_df,"C:/opencpuapp_ip/threshold.csv")
     write.csv(threshold_df,"threshold.csv")
 
     if(! (model %in% c('SVM','NB')))
@@ -658,7 +650,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   }
 
   data_model <- dataFunction(prevSessionid)
-  print('After datafunction')
 
   train <- data_model[[1]]
   test <- data_model[[2]]
@@ -675,7 +666,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   oemFlag <- F
 
   dataUpdated <- setUpFunction(train,test,positive_class,model)
-  print('After setUpFunction')
   train <- dataUpdated[[1]]
   test <- dataUpdated[[2]]
   positive_class <- dataUpdated[[3]]
@@ -683,7 +673,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   rm(dataUpdated)
 
   fn <- get(paste(model,'func',sep='_'))
-  print('before func')
   vars_imp <- fn(train,test,oemFlag,positive_class,F)
 
   vars_imp[[3]][[1]]<-list(tpr = vars_imp[[3]][[1]][1], fpr = vars_imp[[3]][[1]][2],
@@ -698,7 +687,6 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
                            recall = vars_imp_train[[3]][[1]][5], precision = vars_imp_train[[3]][[1]][6],
                            f1score = vars_imp_train[[3]][[1]][7], accuracy = vars_imp_train[[3]][[1]][8])
   write.table(vars_imp_train[[3]][[1]], "ModelLogFile.csv", sep = ",", col.names = T, append = T, row.names = F)
-  print('before benchmarking_modelling_module')
   benchmarking_modelling_module(model_selection,predictorClass,dv,prevSessionid)
 
   vars_imp_list<-list(vars_imp,vars_imp_train)

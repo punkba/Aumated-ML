@@ -98,10 +98,6 @@ top_var_graph <- function(target.var.name, ds,prevSessionid){
     chisq <- data.frame(VARS=names(chisqallpvalues),pval=chisqallpvalues,chistat=chisqallstatvals,stringsAsFactors = F)
     row.names(chisq) <- NULL
 
-    # Remove variables which have p-value of 0 from the chi-square test results
-    #removeVars <- chisq[which(chisq$pval == 0),"VARS"]
-    #allCatVarFinalDF <- allCatVarFinalDF[,!(names(allCatVarFinalDF) %in% removeVars)]
-    #chisq <- chisq[-which(chisq$VARS == removeVars),]
 
     chisq <- chisq[order(-chisq$chistat),]
     chisq$ChistatRank <- order(-chisq$chistat)
@@ -151,17 +147,9 @@ top_var_graph <- function(target.var.name, ds,prevSessionid){
     return(allFiltRes1)
   }
 
-
-
-
-
-
-  ##RESULTS
-  print('Before binning')
   data_binned1 <- dataBinning(data)
-  print('after binning')
   names(data_binned1)[names(data_binned1)=="DV"] <- target.var.name
-  write.csv(data_binned1,"c:/opencpuapp_ip/data_after_binning.csv")
+  write.csv(data_binned1,"data_after_binning.csv")
 
     ##TRAIN & TEST SPLIT
   ## 80% of the sample size
@@ -173,9 +161,6 @@ top_var_graph <- function(target.var.name, ds,prevSessionid){
 
   train_from_user <- data_binned1[train_ind, ]
   test_from_user <- data_binned1[-train_ind, ]
-
-  write.csv(train_from_user,"C:/opencpuapp_ip/train_comp.csv");
-  write.csv(test_from_user,"C:/opencpuapp_ip/test_comp.csv");
 
   data_binned <- dataBinning(data)
   allFiltRes <- univFiltRes(data_binned)

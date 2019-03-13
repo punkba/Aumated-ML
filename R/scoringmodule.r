@@ -20,7 +20,6 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
   library(woeBinning)
   library(tidyverse)
 
-  #data<-read.csv("C:/opencpuapp_ip/data_after_binning.csv",stringsAsFactors = FALSE)
   loc <- getServerPath(prevSessionid,getwd())
   cleanedDataLoc <- paste0(loc,'/cleaned_data.csv')
   data<-read.csv(file=cleanedDataLoc,stringsAsFactors = FALSE)
@@ -38,7 +37,6 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
 
   thresholdLoc <- paste0(loc,'/threshold.csv')
   data_pts<-read.csv(file=thresholdLoc,stringsAsFactors = FALSE)
-  #data_pts<-read.csv("C:/opencpuapp_ip/threshold.csv",stringsAsFactors = FALSE)
   target.var.name <- data_pts$DVName
   typeof(target.var.name)
 
@@ -46,11 +44,9 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
     data <- df_data
     #add string for data summary
     Summary_df <- data.frame(unclass(summary(data)), check.names = FALSE, stringsAsFactors = FALSE)
-    #write.table(Summary_df, "LogFile.csv", sep = ",", col.names = T, append = T)
 
     #consider target variable name given as input in HybridFS function as DV'
     n <- dv
-    #n <- "Churn"
     if(length(unique(data[[n]]))!=2)
     {
       stop("Error: Dependent variables should be 2 for binary classification!")
@@ -563,11 +559,8 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
     }}
 
   test$DV <- NULL
-  #class(final_dataset)
   test <- test[, !colnames(test) %in% test_names]
 
-  #write.csv(data,"C:/opencpuapp_ip/f_dv.csv")
-  write.csv(test,"C:/opencpuapp_ip/test_binned.csv")
   write.csv(test,'test_binned.csv')
 
   testD<-test
@@ -655,9 +648,5 @@ scoringmodule <- function(filename,modelSel,prevSessionid) {
 
   names(testD)[names(testD)=="Predicted"] <- target.var.name
 
-  #sapply(testD,class)
-  #testD$SeniorCitizen<-as.numeric(testD$SeniorCitizen)
-
-  write.csv(testD,"C:/opencpuapp_ip/Scored_out.csv")
   write.csv(testD,'scoredData.csv')
 }

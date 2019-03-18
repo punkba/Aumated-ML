@@ -4,6 +4,7 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
   library(caret)
   library(caTools)
   library(ROCR)
+  library(dplyr)
 
   print('inside modelling')
 

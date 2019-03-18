@@ -55,7 +55,7 @@ $(document).ready(function(){
 								}).fail(function(){
 									alert("Server error: " + modelReq.responseText);
 								}).always(function(){
-									$("#show_perf").removeAttr("disabled")
+									$("#modelSubmit").removeAttr("disabled")
 								});
 
 		function populateResults(sessionData){

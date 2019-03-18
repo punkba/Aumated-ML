@@ -439,11 +439,12 @@ modelling_module<-function(model_selection,predictorClass,dv,prevSessionid)
     test_rf <- predResult
 
     roc.curve(test_rf$DV, test_rf$Prob, plotit = F)
-    important_variables <- variable_importance(treeimp,"n",flag)
 
     evalResults<- evaluatemeasures(test_rf,flag)
 
     model_evaluations["rf",] <- evalResults
+    
+    important_variables <- variable_importance(treeimp,"n",flag)
 
     model_evaluations <- model_evaluations[rowSums(is.na(model_evaluations)) != ncol(model_evaluations),]
 

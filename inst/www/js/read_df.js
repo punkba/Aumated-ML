@@ -200,3 +200,10 @@ function updateCheckList(variableName){
 		}
 	}
 }
+
+function addSelectValues(inputList){
+	for(elem = 0;elem < inputList.length;elem++){
+		var option = new Option(inputList[elem],inputList[elem]);
+		$("#dvname").append($(option))
+	}
+}

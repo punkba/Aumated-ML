@@ -18,6 +18,7 @@ $(document).ready(function(){
 	    },function(session){
 			session.getObject(function(varnameList){
 				console.log(varnameList);
+				addSelectValues(varnameList);
 			}).fail(
 			function(){
 				alert("Server error: " + req.responseText);
@@ -206,4 +207,5 @@ function addSelectValues(inputList){
 		var option = new Option(inputList[elem],inputList[elem]);
 		$("#dvname").append($(option))
 	}
+	$('#dvname option[value=""]').remove();
 }

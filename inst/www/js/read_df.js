@@ -21,12 +21,12 @@ $(document).ready(function(){
 				addSelectValues(varnameList);
 			}).fail(
 			function(){
-				alert("Server error: " + req.responseText);
+				alert("Server error: " + reqInit.responseText);
 			});
 	    });
 
 		reqInit.fail(function(){
-	      alert("Server error: " + req.responseText);
+	      alert("Server error: " + reqInit.responseText);
 	    });
 
 		reqInit.always(function(){

@@ -8,11 +8,34 @@ $(document).ready(function(){
 	var testOutput='';
 	$("#progress1").hide();
 
+	$("#fileInputArea").change(function(){
+
+		filename = $("#fileInputArea")[0].files[0];
+		$("#submitbutton").attr("disabled", "disabled");
+
+		var reqInit = ocpu.call("identifyDVColumns", {
+			inputFile : filename,
+	    },function(session){
+			session.getObject(function(varnameList){
+				console.log(varnameList);
+			}).fail(
+			function(){
+				alert("Server error: " + req.responseText);
+			});
+	    });
+
+		reqInit.fail(function(){
+	      alert("Server error: " + req.responseText);
+	    });
+
+		reqInit.always(function(){
+	      $("#submitbutton").removeAttr("disabled")
+	    });
+	});
 
 	$("#submitbutton").on("click", function(){
 		$("#fileInputArea,#dvname,#preddv,#data-split").removeClass('is-invalid');
 
-		filename = $("#fileInputArea")[0].files[0];
 		dvname=$("#dvname").val();
 		preddv=$("#preddv").val();
 		ds="";

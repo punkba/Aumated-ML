@@ -11,8 +11,8 @@ top_var_graph <- function(target.var.name, ds,prevSessionid){
 
   names(data)[names(data)==target.var.name] <- "DV"
   options(java.parameters = "-Xmx1g")
-  options(java.home="C:\\Program Files\\Java\\jre1.8.0_191")
-  Sys.setenv(JAVA_HOME="C:\\Program Files\\Java\\jre1.8.0_191")
+  options(java.home="C:\\Program Files\\Java\\jre1.8.0_201")
+  Sys.setenv(JAVA_HOME="C:\\Program Files\\Java\\jre1.8.0_201")
   data$DV<- as.integer(data$DV)
   options(warn=-1)
 

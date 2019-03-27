@@ -1,5 +1,6 @@
 $(document).ready(function(){
 $('#varChangeLnk').hide();
+$('#datasetLnk').hide();
 //Get the variable list after uploading the dataset
 
 
@@ -34,6 +35,8 @@ $('#varChangeBtn').on('click',function(){
 											initiatePreProcess();
 											$('#varChangeLnk').attr('href',session.getFileURL('LogFile.txt'));
 											$('#varChangeLnk').show();
+											$('#datasetLnk').attr('href',session.getFileURL('cleaned_data.csv'));
+											$('#datasetLnk').show();
 										}
 									});
 								}).fail(function(){

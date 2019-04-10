@@ -8,35 +8,11 @@ $(document).ready(function(){
 	var testOutput='';
 	$("#progress1").hide();
 
-	$("#fileInputArea").change(function(){
-
-		filename = $("#fileInputArea")[0].files[0];
-		$("#submitbutton").attr("disabled", "disabled");
-
-		var reqInit = ocpu.call("identifyDVColumns", {
-			inputFile : filename,
-	    },function(session){
-			session.getObject(function(varnameList){
-				console.log(varnameList);
-				addSelectValues(varnameList);
-			}).fail(
-			function(){
-				alert("Server error: " + reqInit.responseText);
-			});
-	    });
-
-		reqInit.fail(function(){
-	      alert("Server error: " + reqInit.responseText);
-	    });
-
-		reqInit.always(function(){
-	      $("#submitbutton").removeAttr("disabled")
-	    });
-	});
 
 	$("#submitbutton").on("click", function(){
 		$("#fileInputArea,#dvname,#preddv,#data-split").removeClass('is-invalid');
 
+		filename = $("#fileInputArea")[0].files[0];
 		dvname=$("#dvname").val();
 		preddv=$("#preddv").val();
 		ds="";
@@ -200,12 +176,4 @@ function updateCheckList(variableName){
 			checkedVars.splice(index,1);
 		}
 	}
-}
-
-function addSelectValues(inputList){
-	for(elem = 0;elem < inputList.length;elem++){
-		var option = new Option(inputList[elem],inputList[elem]);
-		$("#dvname").append($(option))
-	}
-	$('#dvname option[value=""]').remove();
 }

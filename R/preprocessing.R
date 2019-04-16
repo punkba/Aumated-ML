@@ -15,7 +15,7 @@ names(data)[names(data)==dv] <- "DV"
 variables = read.csv(file=variableListLoc, header=TRUE, sep=",")
 categorical = levels(variables$categorical)
 
-if(typeof(conv_var_names) != "double")
+if(conv_var_names != 0)
 {
   categorical = append(categorical, conv_var_names)
   disc_var_names = levels(variables$discrete)[levels(variables$discrete) != conv_var_names]
